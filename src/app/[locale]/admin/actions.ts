@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 function slugify(s: string) {
   return s
@@ -28,13 +29,20 @@ function numOrNull(fd: FormData, key: string): number | null {
   return Number.isFinite(n) ? n : null
 }
 
+// Vérifie que la session courante est admin, puis renvoie un client d'écriture.
+// On utilise le client service-role pour les mutations (contourne le RLS) — sûr
+// car l'accès est déjà verrouillé par le contrôle de rôle ci-dessus.
 async function assertAdmin() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/connexion')
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
   if (profile?.role !== 'admin') redirect('/')
-  return supabase
+  try {
+    return createAdminClient()
+  } catch {
+    return supabase // fallback : nécessite alors les policies RLS d'écriture admin
+  }
 }
 
 // ── News ──────────────────────────────────────────────────────
