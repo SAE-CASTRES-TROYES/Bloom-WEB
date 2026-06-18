@@ -17,9 +17,9 @@ export default function HeroSection() {
 
   return (
     <section ref={ref} className="relative overflow-hidden min-h-[90vh] flex items-center">
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 py-20 lg:py-24 grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-8 lg:gap-4 items-center w-full">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 py-20 lg:py-24 grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-8 lg:gap-4 items-start w-full">
         <motion.div
-          className="flex flex-col gap-5 lg:gap-6"
+          className="flex flex-col gap-5 lg:gap-6 lg:pt-2"
           variants={staggerParent}
           initial="hidden"
           animate="visible"
@@ -54,7 +54,7 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="flex items-center justify-center order-first lg:order-last w-full"
+          className="flex items-center justify-center order-first lg:order-last w-full lg:self-center"
           style={{ y: illustrationY }}
           variants={blurIn}
           initial="hidden"
