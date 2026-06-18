@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Sprout, VenetianMask } from 'lucide-react'
+import { Sprout, Flame } from 'lucide-react'
 import { blurUp, staggerParent, viewportOnce } from '@/lib/motion'
 import ResourceMarquee from './ResourceMarquee'
 
@@ -18,7 +18,7 @@ const camps = [
   },
   {
     key: 'ronces',
-    Icon: VenetianMask,
+    Icon: Flame,
     title: 'Les Ronces',
     badge: 'Sabotent',
     badgeStyle: 'text-bloom-rose bg-bloom-rose/10 border border-bloom-rose/20',
