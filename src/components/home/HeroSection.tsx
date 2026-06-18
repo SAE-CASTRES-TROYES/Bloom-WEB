@@ -80,7 +80,7 @@ export default function HeroSection() {
               Faites éclore les
             </motion.h1>
             <motion.p
-              className="font-title text-6xl sm:text-7xl lg:text-8xl text-bloom-rose leading-none tracking-tight"
+              className="font-accent italic text-6xl sm:text-7xl lg:text-8xl text-bloom-rose leading-none"
               initial="hidden" animate="visible" variants={fadeUp} custom={1}
             >
               Fleurs Légendaires
@@ -100,7 +100,7 @@ export default function HeroSection() {
           >
             <Link
               href="/jeu"
-              className="inline-flex items-center gap-2 bg-bloom-rose text-white rounded-full px-8 py-3.5 font-body font-semibold text-base hover:bg-bloom-rose/90 active:scale-95 transition-all shadow-lg shadow-bloom-rose/25"
+              className="inline-flex items-center gap-2 bg-bloom-green text-white rounded-full px-8 py-3.5 font-body font-semibold text-base hover:bg-bloom-green/90 active:scale-95 transition-all shadow-lg shadow-bloom-green/25"
             >
               Jouer maintenant
             </Link>

@@ -5,9 +5,9 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 
 const features = [
-  { icon: '🤝', label: 'Coopération', desc: 'Jouez ensemble pour faire éclore les cinq fleurs légendaires.' },
-  { icon: '👁', label: 'Doute',       desc: 'Méfiez-vous des Ronces qui se cachent parmi vous.' },
-  { icon: '🌸', label: 'Poésie',      desc: 'Un univers poétique et mystérieux pour tous les âges.' },
+  { img: '/icon-plant.png',  bg: 'bg-bloom-green',         label: 'Coopération', desc: 'Jouez ensemble pour faire éclore les cinq fleurs légendaires.' },
+  { img: '/icon-eye.png',    bg: 'bg-bloom-violet-light',  label: 'Doute',       desc: 'Méfiez-vous des Ronces qui se cachent parmi vous.' },
+  { img: '/icon-flower.png', bg: 'bg-bloom-violet-light',  label: 'Poésie',      desc: 'Un univers poétique et mystérieux pour tous les âges.' },
 ]
 
 export default function UniverseSection() {
@@ -79,7 +79,7 @@ export default function UniverseSection() {
           </motion.p>
 
           <div className="grid grid-cols-3 gap-4 pt-2">
-            {features.map(({ icon, label, desc }, i) => (
+            {features.map(({ img, bg, label, desc }, i) => (
               <motion.div
                 key={label}
                 className="flex flex-col gap-2"
@@ -87,8 +87,8 @@ export default function UniverseSection() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.34 + i * 0.1 }}
               >
-                <div className="w-9 h-9 rounded-xl bg-bloom-violet-pale/70 flex items-center justify-center text-xl">
-                  {icon}
+                <div className={`w-[54px] h-[54px] rounded-2xl ${bg} flex items-center justify-center`}>
+                  <img src={img} alt={label} className="w-7 h-7 object-contain" />
                 </div>
                 <p className="font-title text-sm text-bloom-black">{label}</p>
                 <p className="font-body text-xs text-bloom-gray-dark/55 leading-relaxed">{desc}</p>
