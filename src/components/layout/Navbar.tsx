@@ -4,108 +4,144 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ShoppingCart, User } from 'lucide-react'
 import LocaleSwitcher from './LocaleSwitcher'
+import { useCartStore } from '@/lib/store/cart'
 
 export default function Navbar() {
   const t = useTranslations('nav')
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const cartCount = useCartStore((s) => s.count())
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20)
+    const handler = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  const links = [
+  const mainLinks = [
     { href: '/actualites', label: t('news') },
-    { href: '/boutique', label: t('shop') },
+    { href: '/boutique',   label: t('shop') },
   ]
 
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
       scrolled
-        ? 'bg-bloom-cream-light/95 backdrop-blur-md shadow-sm'
+        ? 'bg-bloom-cream-light/96 backdrop-blur-md shadow-sm shadow-bloom-violet-light/20'
         : 'bg-bloom-cream-light/80 backdrop-blur-sm'
     }`}>
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
+      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <Image src="/logo.svg" alt="Bloom" width={36} height={36} priority className="w-9 h-9" />
-          <span className="font-title text-xl text-bloom-violet-dark hidden sm:block">Bloom</span>
+        <Link href="/" className="flex items-center gap-2 shrink-0 group">
+          <Image
+            src="/logo.svg" alt="Bloom"
+            width={34} height={34}
+            className="w-[34px] h-[34px] group-hover:scale-105 transition-transform"
+            priority
+          />
+          <span className="font-title text-[1.25rem] text-bloom-violet-dark tracking-tight hidden sm:block">
+            Bloom
+          </span>
         </Link>
 
-        {/* Center nav links */}
-        <ul className="hidden md:flex items-center gap-8">
-          {links.map(({ href, label }) => (
+        {/* Links centraux */}
+        <ul className="hidden md:flex items-center gap-7">
+          {mainLinks.map(({ href, label }) => (
             <li key={href}>
               <Link
                 href={href}
-                className={`font-body text-sm transition-colors hover:text-bloom-violet-dark ${
+                className={`font-body text-[0.9rem] transition-colors relative group ${
                   pathname.startsWith(href)
                     ? 'text-bloom-violet-dark font-semibold'
-                    : 'text-bloom-gray-dark'
+                    : 'text-bloom-gray-dark/80 hover:text-bloom-violet-dark'
                 }`}
               >
                 {label}
+                <span className={`absolute -bottom-0.5 left-0 h-[2px] bg-bloom-rose rounded-full transition-all duration-200 ${
+                  pathname.startsWith(href) ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}/>
               </Link>
             </li>
           ))}
         </ul>
 
-        {/* Right: locale + auth */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Droite */}
+        <div className="hidden md:flex items-center gap-2.5">
           <LocaleSwitcher />
+
+          {/* Panier */}
+          <Link href="/panier" className="relative p-2 text-bloom-gray-dark/70 hover:text-bloom-violet-dark transition-colors">
+            <ShoppingCart size={18} />
+            {cartCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-bloom-rose text-white rounded-full text-[10px] font-bold flex items-center justify-center font-body">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+
           <Link
             href="/connexion"
-            className="font-body text-sm text-bloom-violet-dark px-4 py-1.5 hover:text-bloom-rose transition-colors"
+            className="font-body text-[0.85rem] text-bloom-violet-dark/80 hover:text-bloom-violet-dark transition-colors flex items-center gap-1.5 px-2 py-1"
           >
+            <User size={15} />
             {t('login')}
           </Link>
+
           <Link
             href="/inscription"
-            className="font-body text-sm border border-bloom-violet-dark text-bloom-violet-dark rounded-full px-5 py-1.5 hover:bg-bloom-violet-dark hover:text-white transition-colors"
+            className="font-body text-[0.85rem] font-semibold border border-bloom-violet-dark/60 text-bloom-violet-dark rounded-full px-5 py-1.5 hover:bg-bloom-violet-dark hover:text-white transition-all"
           >
             Inscription
           </Link>
         </div>
 
         {/* Mobile toggle */}
-        <button
-          className="md:hidden text-bloom-gray-dark p-1"
-          onClick={() => setOpen(!open)}
-          aria-label="Menu"
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <Link href="/panier" className="relative p-1.5 text-bloom-gray-dark/70">
+            <ShoppingCart size={18} />
+            {cartCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-bloom-rose text-white rounded-full text-[10px] font-bold flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+          <button
+            className="p-1.5 text-bloom-gray-dark"
+            onClick={() => setOpen(!open)}
+            aria-label="Menu"
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile dropdown */}
       {open && (
-        <div className="md:hidden bg-bloom-cream-light border-t border-bloom-violet-light/20 px-6 py-4 flex flex-col gap-3">
-          {links.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={() => setOpen(false)}
-              className="font-body text-sm py-2 text-bloom-gray-dark border-b border-bloom-violet-light/20 last:border-0"
-            >
+        <div className="md:hidden bg-bloom-cream-light border-t border-bloom-violet-light/20 px-6 py-5 flex flex-col gap-4">
+          {mainLinks.map(({ href, label }) => (
+            <Link key={href} href={href} onClick={() => setOpen(false)}
+              className="font-body text-sm py-2 text-bloom-gray-dark border-b border-bloom-violet-light/20 last:border-0">
               {label}
             </Link>
           ))}
-          <div className="flex flex-col gap-2 pt-2">
-            <Link href="/connexion" onClick={() => setOpen(false)} className="font-body text-sm text-bloom-violet-dark py-2">
-              {t('login')}
+          <div className="flex flex-col gap-2 pt-1">
+            <Link href="/connexion" onClick={() => setOpen(false)}
+              className="font-body text-sm text-bloom-violet-dark py-2 flex items-center gap-2">
+              <User size={15}/> {t('login')}
             </Link>
-            <Link href="/inscription" onClick={() => setOpen(false)} className="font-body text-sm border border-bloom-violet-dark text-bloom-violet-dark rounded-full px-5 py-2 text-center">
+            <Link href="/inscription" onClick={() => setOpen(false)}
+              className="font-body text-sm border border-bloom-violet-dark text-bloom-violet-dark rounded-full px-5 py-2 text-center font-semibold">
               Inscription
             </Link>
+            <Link href="/jeu" onClick={() => setOpen(false)}
+              className="font-body text-sm bg-bloom-violet-dark text-white rounded-full px-5 py-2 text-center font-semibold">
+              {t('play')}
+            </Link>
           </div>
-          <div className="pt-1">
-            <LocaleSwitcher />
-          </div>
+          <LocaleSwitcher />
         </div>
       )}
     </header>
