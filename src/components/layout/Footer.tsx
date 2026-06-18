@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { Link } from '@/i18n/navigation'
-import { iconBadge } from '@/lib/ui'
 
 const columns = [
   {
@@ -30,12 +29,6 @@ const columns = [
   },
 ]
 
-const socials = [
-  { label: 'YouTube', href: '#', icon: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-  )},
-]
-
 export default function Footer() {
   const year = new Date().getFullYear()
 
@@ -51,14 +44,6 @@ export default function Footer() {
               height={309}
               className="w-[150px] h-auto"
             />
-            <div className="flex gap-3">
-              {socials.map(({ label, href, icon }) => (
-                <a key={label} href={href} aria-label={label}
-                  className={`${iconBadge} w-10 h-10 bg-bloom-black/30 border-bloom-violet-dark/40 text-bloom-violet-pale hover:text-bloom-gold hover:border-bloom-gold/50`}>
-                  {icon}
-                </a>
-              ))}
-            </div>
             <p className="font-body text-xs text-bloom-violet-pale/50 leading-relaxed max-w-[200px]">
               Bloom, le Jardin des Merveilles. Un jeu doux, poétique et mystérieux pour 7 à 77 ans.
             </p>
