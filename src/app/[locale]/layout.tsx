@@ -3,26 +3,28 @@ import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
-import { Alice, Karla, Dancing_Script } from 'next/font/google'
+import localFont from 'next/font/local'
 import { routing } from '@/i18n/routing'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import '../globals.css'
 
-const alice = Alice({
+const alice = localFont({
+  src: '../../../public/alice-regular.ttf',
   variable: '--font-alice',
-  subsets: ['latin'],
-  weight: '400',
+  display: 'swap',
 })
 
-const karla = Karla({
+const karla = localFont({
+  src: '../../../public/karla-variable.ttf',
   variable: '--font-karla',
-  subsets: ['latin'],
+  display: 'swap',
 })
 
-const dancingScript = Dancing_Script({
+const dancingScript = localFont({
+  src: '../../../public/dancing-script-regular.ttf',
   variable: '--font-dancing-script',
-  subsets: ['latin'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
