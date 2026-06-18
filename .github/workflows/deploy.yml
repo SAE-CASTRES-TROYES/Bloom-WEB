@@ -28,6 +28,19 @@ jobs:
           NEXT_PUBLIC_JEU_URL: ${{ secrets.NEXT_PUBLIC_JEU_URL }}
         run: npm run build
 
+      - name: Sync build to VPS
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          # Les excludes doivent passer par switches : l'input "exclude" n'existe pas
+          # sur cette action (sinon --delete supprime .env.local à chaque déploiement).
+          switches: -avz --delete --exclude='.git' --exclude='.env*' --exclude='node_modules' --exclude='setup-github-cicd.sh' --exclude='bloom.mariusnogueron.fr.conf'
+          path: ./
+          remote_path: /var/www/bloom/
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_user: ${{ secrets.VPS_USER }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # Écrit APRÈS le rsync pour qu'un éventuel --delete ne puisse pas l'effacer.
       - name: Write .env.local on VPS
         uses: appleboy/ssh-action@v1
         with:
@@ -45,18 +58,6 @@ jobs:
             STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}
             NEXT_PUBLIC_JEU_URL=${{ secrets.NEXT_PUBLIC_JEU_URL }}
             ENVEOF
-
-      - name: Sync build to VPS
-        uses: burnett01/rsync-deployments@7.0.1
-        with:
-          switches: -avz --delete
-          path: ./
-          remote_path: /var/www/bloom/
-          remote_host: ${{ secrets.VPS_HOST }}
-          remote_user: ${{ secrets.VPS_USER }}
-          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          remote_key_passphrase: ''
-          exclude: '.git,.env*,node_modules,deploy.sh,bloom.mariusnogueron.fr.conf'
 
       - name: Restart PM2
         uses: appleboy/ssh-action@v1
