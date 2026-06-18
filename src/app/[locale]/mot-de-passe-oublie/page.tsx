@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { btn } from '@/lib/ui'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { useForm } from 'react-hook-form'
@@ -68,7 +69,7 @@ export default function ForgotPasswordPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-bloom-violet-dark text-bloom-cream-light rounded-2xl px-6 py-3 font-semibold text-sm hover:bg-bloom-violet-medium transition-colors disabled:opacity-50"
+              className={btn('violet', 'md')}
             >
               {isSubmitting ? '...' : t('forgot_submit')}
             </button>

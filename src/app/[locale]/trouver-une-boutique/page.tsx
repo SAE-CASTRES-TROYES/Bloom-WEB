@@ -15,7 +15,7 @@ export default async function TrouverUneBoutiquePage() {
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-8">
         <div className="flex flex-col gap-2">
-          <span className="font-accent text-bloom-rose text-lg italic">Réseau</span>
+          <span className="font-accent text-bloom-rose text-lg">Réseau</span>
           <h1 className="font-title text-5xl text-bloom-violet-dark">{t('title')}</h1>
         </div>
         <StoreLocatorMap retailers={retailers ?? []} />

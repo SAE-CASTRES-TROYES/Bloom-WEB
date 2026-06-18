@@ -9,6 +9,7 @@ import { Menu, X, ShoppingCart, User } from 'lucide-react'
 import LocaleSwitcher from './LocaleSwitcher'
 import { useCartStore } from '@/lib/store/cart'
 import { EASE_OUT } from '@/lib/motion'
+import { btn } from '@/lib/ui'
 
 export default function Navbar() {
   const t = useTranslations('nav')
@@ -39,18 +40,10 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
+      <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4 md:grid md:grid-cols-[1fr_auto_1fr]">
 
-        <Link href="/" className="flex items-center shrink-0 group -my-8" aria-label="Bloom — accueil">
-          <Image
-            src="/brand/icotype.png" alt="Bloom"
-            width={140} height={140}
-            className="w-[104px] h-[104px] object-contain group-hover:scale-110 transition-transform duration-300"
-            priority
-          />
-        </Link>
-
-        <ul className="hidden md:flex items-center gap-7">
+        {/* gauche — les deux liens, côte à côte */}
+        <ul className="hidden md:flex items-center gap-7 justify-self-start">
           {mainLinks.map(({ href, label }) => (
             <li key={href}>
               <Link
@@ -70,7 +63,22 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden md:flex items-center gap-3">
+        {/* centre — l'icotype : élément phare + CTA retour accueil */}
+        <Link
+          href="/"
+          aria-label="Bloom — retour à l'accueil"
+          className="group order-first md:order-none justify-self-center flex items-center"
+        >
+          <Image
+            src="/brand/icotype.webp" alt="Bloom"
+            width={160} height={160}
+            className="w-[72px] h-[72px] md:w-[100px] md:h-[100px] object-contain drop-shadow-sm transition-transform duration-300 ease-out group-hover:scale-110 group-hover:-rotate-3"
+            priority
+          />
+        </Link>
+
+        {/* droite — actions */}
+        <div className="hidden md:flex items-center justify-self-end gap-3">
           <LocaleSwitcher />
 
           {cartCount > 0 && (
@@ -90,14 +98,12 @@ export default function Navbar() {
             {t('login')}
           </Link>
 
-          <Link
-            href="/inscription"
-            className="font-body text-[0.85rem] font-semibold bg-bloom-violet-light text-bloom-violet-dark rounded-full px-5 py-2 hover:bg-bloom-violet-medium hover:text-white transition-colors"
-          >
+          <Link href="/inscription" className={btn('soft', 'sm')}>
             Inscription
           </Link>
         </div>
 
+        {/* mobile — panier + burger */}
         <div className="md:hidden flex items-center gap-2">
           {cartCount > 0 && (
             <Link href="/panier" className="relative p-1.5 text-bloom-gray-dark/70">
@@ -130,12 +136,10 @@ export default function Navbar() {
               className="font-body text-sm text-bloom-violet-dark py-2 flex items-center gap-2">
               <User size={15}/> {t('login')}
             </Link>
-            <Link href="/inscription" onClick={() => setOpen(false)}
-              className="font-body text-sm bg-bloom-violet-light text-bloom-violet-dark rounded-full px-5 py-2 text-center font-semibold">
+            <Link href="/inscription" onClick={() => setOpen(false)} className={btn('soft', 'sm')}>
               Inscription
             </Link>
-            <Link href="/jeu" onClick={() => setOpen(false)}
-              className="font-body text-sm bg-bloom-green text-white rounded-full px-5 py-2 text-center font-semibold">
+            <Link href="/jeu" onClick={() => setOpen(false)} className={btn('primary', 'sm')}>
               {t('play')}
             </Link>
           </div>

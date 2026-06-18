@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { btn } from '@/lib/ui'
 import { useCartStore } from '@/lib/store/cart'
 
 type Product = {
@@ -27,7 +28,7 @@ export default function AddToCartButton({ product }: { product: Product }) {
           quantity: 1,
         })
       }
-      className="w-full bg-bloom-violet-dark text-bloom-cream-light rounded-2xl px-6 py-4 font-semibold text-base hover:bg-bloom-violet-medium transition-colors"
+      className={`${btn('primary', 'lg')} w-full`}
     >
       {t('add_to_cart')}
     </button>

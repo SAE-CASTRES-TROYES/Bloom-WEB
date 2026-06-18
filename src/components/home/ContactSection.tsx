@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { blurUp, staggerParent, viewportOnce } from '@/lib/motion'
+import { btn, iconBadge } from '@/lib/ui'
 
 const schema = z.object({
   prenom: z.string().min(2),
@@ -72,7 +73,7 @@ export default function ContactSection() {
                 className="flex items-center gap-4 group"
                 variants={blurUp}
               >
-                <div className="w-10 h-10 rounded-xl bg-bloom-black/30 border border-bloom-violet-dark/40 flex items-center justify-center text-bloom-violet-pale shrink-0 group-hover:border-bloom-gold/50 group-hover:text-bloom-gold transition-colors">
+                <div className={`${iconBadge} w-10 h-10 bg-bloom-black/30 border-bloom-violet-dark/40 text-bloom-violet-pale group-hover:border-bloom-gold/50 group-hover:text-bloom-gold`}>
                   <Icon size={18} />
                 </div>
                 <div>
@@ -170,7 +171,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-bloom-violet-dark text-white rounded-full py-3 font-semibold text-sm hover:bg-bloom-violet-medium transition-colors disabled:opacity-50 mt-1 active:scale-[0.98]"
+                className={`${btn('violet', 'md')} w-full mt-1`}
               >
                 {isSubmitting ? 'Envoi...' : 'Envoyer'}
               </button>

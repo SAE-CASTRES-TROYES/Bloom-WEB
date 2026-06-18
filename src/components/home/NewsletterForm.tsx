@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { btn } from '@/lib/ui'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -54,7 +55,7 @@ export default function NewsletterForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-bloom-gold text-bloom-black rounded-lg px-4 py-2 text-sm font-semibold hover:bg-bloom-gold-light transition-colors disabled:opacity-50"
+            className={btn('soft', 'sm')}
           >
             {t('submit')}
           </button>

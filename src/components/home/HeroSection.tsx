@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { staggerParent, lineMask, blurUp, blurIn, EASE_OUT, SPRING } from '@/lib/motion'
+import { btn } from '@/lib/ui'
 import FlowerShowcase from './FlowerShowcase'
 
 export default function HeroSection() {
@@ -51,18 +52,12 @@ export default function HeroSection() {
 
           <motion.div variants={blurUp} className="flex flex-col sm:flex-row gap-3 items-start">
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={SPRING}>
-              <Link
-                href="/jeu"
-                className="inline-flex items-center gap-2 bg-bloom-rose text-white rounded-full px-8 py-3.5 font-body font-semibold text-base shadow-lg shadow-bloom-rose/25"
-              >
+              <Link href="/jeu" className={btn('primary', 'lg')}>
                 Jouer maintenant
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={SPRING}>
-              <Link
-                href="/boutique"
-                className="inline-flex items-center gap-2 border-2 border-bloom-violet-light text-bloom-violet-dark rounded-full px-8 py-3.5 font-body font-semibold text-base hover:bg-bloom-violet-pale hover:border-bloom-violet-dark transition-colors"
-              >
+              <Link href="/boutique" className={btn('outline', 'lg')}>
                 Précommander
               </Link>
             </motion.div>

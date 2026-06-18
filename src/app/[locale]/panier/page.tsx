@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { btn } from '@/lib/ui'
 import { useCartStore } from '@/lib/store/cart'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
@@ -87,7 +88,7 @@ export default function PanierPage() {
           </div>
           <Link
             href="/paiement"
-            className="w-full text-center bg-bloom-gold text-bloom-black rounded-2xl px-6 py-4 font-semibold text-base hover:bg-bloom-gold-light transition-colors"
+            className={`${btn('primary', 'lg')} w-full`}
           >
             {t('checkout')}
           </Link>

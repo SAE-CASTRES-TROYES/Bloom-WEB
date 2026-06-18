@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import ProductCard from '@/components/shop/ProductCard'
 import B2BSection from '@/components/shop/B2BSection'
 import { Link } from '@/i18n/navigation'
+import { btn } from '@/lib/ui'
 
 export default async function BoutiquePage() {
   const t = await getTranslations('shop')
@@ -28,7 +29,7 @@ export default async function BoutiquePage() {
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-12">
         <div className="flex flex-col gap-2">
-          <span className="font-accent text-bloom-rose text-lg italic">Commander</span>
+          <span className="font-accent text-bloom-rose text-lg">Commander</span>
           <h1 className="font-title text-5xl text-bloom-violet-dark">{t('title')}</h1>
         </div>
 
@@ -52,7 +53,7 @@ export default async function BoutiquePage() {
         ) : (
           <section className="border-t border-bloom-violet-light pt-10 flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              <span className="font-accent text-bloom-rose text-lg italic">Professionnels</span>
+              <span className="font-accent text-bloom-rose text-lg">Professionnels</span>
               <h2 className="font-title text-3xl text-bloom-violet-dark">Espace Revendeur B2B</h2>
               <p className="font-body text-bloom-violet-medium max-w-lg">
                 Accédez au catalogue grossiste, aux tarifs pro et au kit de vente en créant un compte revendeur.
@@ -74,16 +75,10 @@ export default async function BoutiquePage() {
               </div>
             ) : (
               <div className="flex gap-3 flex-wrap">
-                <Link
-                  href="/inscription"
-                  className="font-body text-sm font-semibold bg-bloom-violet-dark text-white rounded-full px-6 py-3 hover:bg-bloom-violet-medium transition-colors"
-                >
+                <Link href="/inscription" className={btn('violet', 'md')}>
                   S&apos;inscrire comme revendeur
                 </Link>
-                <Link
-                  href="/connexion"
-                  className="font-body text-sm border border-bloom-violet-light text-bloom-violet-dark rounded-full px-6 py-3 hover:bg-bloom-violet-pale transition-colors"
-                >
+                <Link href="/connexion" className={btn('outline', 'md')}>
                   Se connecter
                 </Link>
               </div>

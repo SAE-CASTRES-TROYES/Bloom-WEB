@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { btn } from '@/lib/ui'
 import { useTranslations } from 'next-intl'
 import { useRouter } from '@/i18n/navigation'
 import { Link } from '@/i18n/navigation'
@@ -94,7 +95,7 @@ export default function ConnexionPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-bloom-violet-dark text-bloom-cream-light rounded-2xl px-6 py-3 font-semibold text-sm hover:bg-bloom-violet-medium transition-colors disabled:opacity-50 mt-2"
+            className={`${btn('violet', 'md')} mt-2`}
           >
             {isSubmitting ? '...' : t('login_submit')}
           </button>

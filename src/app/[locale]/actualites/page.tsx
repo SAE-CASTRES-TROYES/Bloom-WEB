@@ -18,7 +18,7 @@ export default async function ActualitesPage() {
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
         <div className="flex flex-col gap-2">
-          <span className="font-accent text-bloom-rose text-lg italic">Blog &amp; Agenda</span>
+          <span className="font-accent text-bloom-rose text-lg">Blog &amp; Agenda</span>
           <h1 className="font-title text-5xl text-bloom-violet-dark">{t('title')}</h1>
         </div>
 
