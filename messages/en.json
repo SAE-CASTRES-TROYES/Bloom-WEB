@@ -116,7 +116,8 @@
     },
     "read_more": "Read more",
     "back": "← Back to news",
-    "published_on": "Published on {date}"
+    "published_on": "Published on {date}",
+    "empty": "No news in this category yet."
   },
   "shop": {
     "title": "Shop",
@@ -128,7 +129,7 @@
     "b2b": {
       "eyebrow": "Professionals",
       "title": "B2B Retailer Space",
-      "subtitle": "Access the sales kit, your wholesale prices, and place your pre-orders.",
+      "subtitle": "Access your wholesale prices and place your pre-orders.",
       "kit": "Sales kit",
       "kit_desc": "POS materials, pitch and visuals.",
       "prices": "Pro prices",
@@ -145,7 +146,7 @@
     },
     "teaser": {
       "title": "B2B Retailer Space",
-      "body": "Access the wholesale catalog, pro prices, and the sales kit by creating a retailer account.",
+      "body": "Access the wholesale catalog and pro prices by creating a retailer account.",
       "preorder": "Pre-order",
       "register": "Sign up as a retailer",
       "login": "Log in",

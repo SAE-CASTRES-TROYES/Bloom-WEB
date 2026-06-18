@@ -22,7 +22,6 @@ export default async function NewsSection() {
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
         <div className="flex items-end justify-between">
           <div className="flex flex-col gap-2">
-            <span className="font-accent text-bloom-rose text-lg">{t('eyebrow')}</span>
             <h2 className="font-title text-4xl text-bloom-violet-dark">{t('title')}</h2>
           </div>
           <Link

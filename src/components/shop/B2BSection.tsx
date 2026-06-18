@@ -1,4 +1,4 @@
-import { Package, FileText, BadgeEuro, Send } from 'lucide-react'
+import { Package, BadgeEuro, Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { btn } from '@/lib/ui'
 
@@ -15,7 +15,6 @@ const eur = (n: number) =>
 export default function B2BSection({ products }: { products: Product[] }) {
   const t = useTranslations('shop.b2b')
   const actions = [
-    { Icon: FileText, label: t('kit'),     desc: t('kit_desc'),     href: 'mailto:bonjour@bloom-jeu.fr?subject=Demande%20du%20kit%20de%20vente%20Bloom' },
     { Icon: BadgeEuro, label: t('prices'),  desc: t('prices_desc'),  href: '#tarifs-pro' },
     { Icon: Package,   label: t('catalog'), desc: t('catalog_desc'), href: '#catalogue' },
   ]

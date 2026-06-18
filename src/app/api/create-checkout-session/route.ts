@@ -24,29 +24,44 @@ export async function POST(req: Request) {
   const origin = req.headers.get('origin') ?? 'http://localhost:3000'
   const localePrefix = locale === 'fr' ? '' : `/${locale}`
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2026-05-27.dahlia',
-  })
+  const secretKey = process.env.STRIPE_SECRET_KEY
+  if (!secretKey) {
+    return NextResponse.json(
+      { error: 'Paiement indisponible : STRIPE_SECRET_KEY manquante côté serveur.' },
+      { status: 500 },
+    )
+  }
 
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    mode: 'payment',
-    locale: locale as Stripe.Checkout.SessionCreateParams.Locale,
-    line_items: items.map((item) => ({
-      price_data: {
-        currency: 'eur',
-        unit_amount: Math.round(item.price * 100),
-        product_data: {
-          name: item.name,
-          ...(item.image ? { images: [item.image] } : {}),
+  try {
+    const stripe = new Stripe(secretKey, {
+      apiVersion: '2026-05-27.dahlia',
+    })
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      locale: locale as Stripe.Checkout.SessionCreateParams.Locale,
+      line_items: items.map((item) => ({
+        price_data: {
+          currency: 'eur',
+          unit_amount: Math.round(item.price * 100),
+          product_data: {
+            name: item.name,
+            ...(item.image ? { images: [item.image] } : {}),
+          },
         },
-      },
-      quantity: item.quantity,
-    })),
-    success_url: `${origin}${localePrefix}/paiement/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}${localePrefix}/panier`,
-    metadata: { test_mode: 'true' },
-  })
+        quantity: item.quantity,
+      })),
+      success_url: `${origin}${localePrefix}/paiement/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}${localePrefix}/panier`,
+      metadata: { test_mode: 'true' },
+    })
 
-  return NextResponse.json({ url: session.url })
+    return NextResponse.json({ url: session.url })
+  } catch (e) {
+    // On renvoie toujours du JSON pour éviter le « Unexpected end of JSON input » côté client.
+    const message = e instanceof Error ? e.message : 'Erreur Stripe inconnue'
+    console.error('[create-checkout-session]', message)
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
 }

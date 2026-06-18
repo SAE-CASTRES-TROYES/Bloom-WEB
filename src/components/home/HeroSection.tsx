@@ -17,7 +17,7 @@ export default function HeroSection() {
 
   return (
     <section ref={ref} className="relative overflow-hidden min-h-[90vh] flex items-center">
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 py-20 lg:py-24 grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-8 lg:gap-4 items-start w-full">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 py-10 lg:py-12 grid grid-cols-1 lg:grid-cols-[1fr_0.9fr] gap-8 lg:gap-4 items-start w-full">
         <motion.div
           className="flex flex-col gap-5 lg:gap-6 lg:pt-2"
           variants={staggerParent}

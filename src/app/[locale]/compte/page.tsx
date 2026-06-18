@@ -26,11 +26,12 @@ export default async function ComptePage() {
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-3xl mx-auto flex flex-col gap-10">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-bloom-violet-pale flex items-center justify-center text-3xl overflow-hidden">
+          <div className="w-16 h-16 rounded-2xl bg-bloom-violet-pale flex items-center justify-center overflow-hidden">
             {profile?.avatar_url
               // eslint-disable-next-line @next/next/no-img-element
               ? <img src={profile.avatar_url} alt="" className="w-full h-full object-cover" />
-              : '🌿'
+              // eslint-disable-next-line @next/next/no-img-element
+              : <img src="/icons/plant-purple.svg" alt="" className="w-10 h-10" />
             }
           </div>
           <div>
@@ -48,13 +49,14 @@ export default async function ComptePage() {
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { value: totalScore.toLocaleString('fr-FR'), label: t('score'), icon: '🏆' },
-            { value: gamesPlayed, label: t('games_played'), icon: '🎴' },
-            { value: `${winRate}%`, label: t('wins'), icon: '🌸' },
-            { value: profile?.role === 'retailer' ? t('status_pro') : t('status_player'), label: t('status'), icon: profile?.role === 'retailer' ? '🏪' : '🌿' },
+            { value: totalScore.toLocaleString('fr-FR'), label: t('score'), icon: '/icons/fire-purple.svg' },
+            { value: gamesPlayed, label: t('games_played'), icon: '/icons/plant-purple.svg' },
+            { value: `${winRate}%`, label: t('wins'), icon: '/icons/flower-purple.svg' },
+            { value: profile?.role === 'retailer' ? t('status_pro') : t('status_player'), label: t('status'), icon: profile?.role === 'retailer' ? '/icons/shop-purple.svg' : '/icons/eye-purple.svg' },
           ].map(({ value, label, icon }) => (
             <div key={label} className="bg-white rounded-2xl p-4 border border-bloom-violet-light/20 shadow-sm flex flex-col gap-1 items-center text-center">
-              <span className="text-2xl">{icon}</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={icon} alt="" className="w-10 h-10" />
               <span className="font-title text-2xl text-bloom-violet-dark">{value}</span>
               <span className="font-body text-xs text-bloom-violet-medium">{label}</span>
             </div>

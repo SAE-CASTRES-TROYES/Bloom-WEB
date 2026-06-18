@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
-import NewsCard from '@/components/news/NewsCard'
+import NewsFilter from '@/components/news/NewsFilter'
 
 export default async function ActualitesPage() {
   const t = await getTranslations('news')
@@ -12,34 +12,14 @@ export default async function ActualitesPage() {
     .order('published_at', { ascending: false })
   const articles = articlesError ? [] : (rawArticles ?? [])
 
-  const categories = ['all', 'release', 'event', 'tournament'] as const
-
   return (
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
         <div className="flex flex-col gap-2">
-          <span className="font-accent text-bloom-rose text-lg">{t('eyebrow')}</span>
           <h1 className="font-title text-5xl text-bloom-violet-dark">{t('title')}</h1>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
-            <span
-              key={cat}
-              className="font-body text-sm px-4 py-1.5 rounded-full border border-bloom-violet-light text-bloom-violet-dark cursor-pointer hover:bg-bloom-violet-pale transition-colors"
-            >
-              {t(`categories.${cat}`)}
-            </span>
-          ))}
-        </div>
-
-        {articles.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => (
-              <NewsCard key={article.id} article={article} />
-            ))}
-          </div>
-        )}
+        <NewsFilter articles={articles} />
       </div>
     </main>
   )

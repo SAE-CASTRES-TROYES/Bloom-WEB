@@ -116,7 +116,8 @@
     },
     "read_more": "Leer más",
     "back": "← Volver a las noticias",
-    "published_on": "Publicado el {date}"
+    "published_on": "Publicado el {date}",
+    "empty": "No hay noticias en esta categoría por ahora."
   },
   "shop": {
     "title": "Tienda",
@@ -128,7 +129,7 @@
     "b2b": {
       "eyebrow": "Profesionales",
       "title": "Espacio Distribuidor B2B",
-      "subtitle": "Accede al kit de venta, a tus precios mayoristas y haz tus reservas.",
+      "subtitle": "Accede a tus precios mayoristas y haz tus reservas.",
       "kit": "Kit de venta",
       "kit_desc": "PLV, argumentario y recursos visuales.",
       "prices": "Precios pro",
@@ -145,7 +146,7 @@
     },
     "teaser": {
       "title": "Espacio Distribuidor B2B",
-      "body": "Accede al catálogo mayorista, a los precios pro y al kit de venta creando una cuenta de distribuidor.",
+      "body": "Accede al catálogo mayorista y a los precios pro creando una cuenta de distribuidor.",
       "preorder": "Reservar",
       "register": "Registrarse como distribuidor",
       "login": "Iniciar sesión",

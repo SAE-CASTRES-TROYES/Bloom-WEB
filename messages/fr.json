@@ -116,7 +116,8 @@
     },
     "read_more": "Lire la suite",
     "back": "← Retour aux actualités",
-    "published_on": "Publié le {date}"
+    "published_on": "Publié le {date}",
+    "empty": "Aucune actualité dans cette catégorie pour le moment."
   },
   "shop": {
     "title": "Boutique",
@@ -128,7 +129,7 @@
     "b2b": {
       "eyebrow": "Professionnels",
       "title": "Espace Revendeur B2B",
-      "subtitle": "Accédez au kit de vente, à vos tarifs grossiste et passez vos précommandes.",
+      "subtitle": "Accédez à vos tarifs grossiste et passez vos précommandes.",
       "kit": "Kit de vente",
       "kit_desc": "PLV, argumentaire et visuels.",
       "prices": "Tarifs pro",
@@ -145,7 +146,7 @@
     },
     "teaser": {
       "title": "Espace Revendeur B2B",
-      "body": "Accédez au catalogue grossiste, aux tarifs pro et au kit de vente en créant un compte revendeur.",
+      "body": "Accédez au catalogue grossiste et aux tarifs pro en créant un compte revendeur.",
       "preorder": "Précommander",
       "register": "S'inscrire comme revendeur",
       "login": "Se connecter",
