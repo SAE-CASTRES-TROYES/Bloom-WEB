@@ -67,7 +67,7 @@ export default function LeaderboardTable({ entries }: { entries: LeaderboardEntr
         </motion.div>
       )) : (
         <div className="px-5 py-10 text-center">
-          <p className="font-body text-sm text-bloom-gray-dark/60">Le classement sera disponible après les premières parties.</p>
+          <p className="font-body text-sm text-bloom-gray-dark/60">{t('empty')}</p>
         </div>
       )}
     </motion.div>

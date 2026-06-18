@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
-import { staggerParent, lineMask, blurUp, blurIn, EASE_OUT, SPRING } from '@/lib/motion'
+import { staggerParent, blurUp, blurIn, EASE_OUT, SPRING } from '@/lib/motion'
 import { btn } from '@/lib/ui'
 import FlowerShowcase from './FlowerShowcase'
 
@@ -24,24 +24,13 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
         >
-          <div className="flex flex-col gap-1">
-            <span className="block overflow-hidden pb-[0.12em]">
-              <motion.span
-                variants={lineMask}
-                className="block font-title text-6xl sm:text-7xl lg:text-8xl text-bloom-black leading-[1.05] tracking-tight"
-              >
-                Faites éclore les
-              </motion.span>
-            </span>
-            <span className="block overflow-hidden pb-[0.12em]">
-              <motion.span
-                variants={lineMask}
-                className="block font-accent text-6xl sm:text-7xl lg:text-8xl text-bloom-rose leading-[1.05] tracking-tight"
-              >
-                Fleurs Légendaires
-              </motion.span>
-            </span>
-          </div>
+          <motion.h1
+            variants={blurUp}
+            className="font-title text-5xl sm:text-6xl lg:text-7xl text-bloom-black leading-[1.08] tracking-tight text-balance"
+          >
+            {t('title_lead')}{' '}
+            <span className="font-accent text-bloom-rose">{t('title_accent')}</span>
+          </motion.h1>
 
           <motion.p
             variants={blurUp}
@@ -53,12 +42,12 @@ export default function HeroSection() {
           <motion.div variants={blurUp} className="flex flex-col sm:flex-row gap-3 items-start">
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={SPRING}>
               <Link href="/jeu" className={btn('primary', 'lg')}>
-                Jouer maintenant
+                {t('cta_play')}
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={SPRING}>
               <Link href="/boutique" className={btn('outline', 'lg')}>
-                Précommander
+                {t('cta_order')}
               </Link>
             </motion.div>
           </motion.div>

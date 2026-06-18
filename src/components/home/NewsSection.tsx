@@ -14,12 +14,15 @@ export default async function NewsSection() {
     .limit(3)
   const safeArticles = newsError ? [] : (articles ?? [])
 
+  // S'il n'y a pas d'actualités, on n'affiche pas la section du tout.
+  if (safeArticles.length === 0) return null
+
   return (
     <section id="actualites" className="py-24 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
         <div className="flex items-end justify-between">
           <div className="flex flex-col gap-2">
-            <span className="font-accent text-bloom-rose text-lg italic">Nouveautés</span>
+            <span className="font-accent text-bloom-rose text-lg">{t('eyebrow')}</span>
             <h2 className="font-title text-4xl text-bloom-violet-dark">{t('title')}</h2>
           </div>
           <Link
@@ -30,19 +33,11 @@ export default async function NewsSection() {
           </Link>
         </div>
 
-        {safeArticles.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {safeArticles.map((article) => (
-              <NewsCard key={article.id} article={article} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16">
-            <p className="font-body text-bloom-violet-medium">
-              Les premières actualités arrivent bientôt...
-            </p>
-          </div>
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {safeArticles.map((article) => (
+            <NewsCard key={article.id} article={article} />
+          ))}
+        </div>
 
         <Link
           href="/actualites"

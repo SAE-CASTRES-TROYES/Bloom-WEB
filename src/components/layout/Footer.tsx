@@ -1,36 +1,38 @@
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 
-const columns = [
-  {
-    title: 'LE JEU',
-    links: [
-      { label: 'Univers', href: '/#univers' },
-      { label: 'Règles', href: '/#regles' },
-      { label: 'Rôles', href: '/#regles' },
-    ],
-  },
-  {
-    title: 'COMMUNAUTÉ',
-    links: [
-      { label: 'Actualités', href: '/actualites' },
-      { label: 'Classement', href: '/#classement' },
-      { label: 'Compte joueur', href: '/compte' },
-    ],
-  },
-  {
-    title: 'BOUTIQUE',
-    links: [
-      { label: 'Catalogue', href: '/boutique' },
-      { label: 'Espace revendeurs', href: '/boutique#b2b' },
-      { label: 'Précommande', href: '/boutique' },
-      { label: 'Trouver une boutique', href: '/trouver-une-boutique' },
-    ],
-  },
-]
-
 export default function Footer() {
+  const t = useTranslations('footer')
   const year = new Date().getFullYear()
+
+  const columns = [
+    {
+      title: t('col_game'),
+      links: [
+        { label: t('l_universe'), href: '/#univers' },
+        { label: t('l_rules'), href: '/#regles' },
+        { label: t('l_roles'), href: '/#regles' },
+      ],
+    },
+    {
+      title: t('col_community'),
+      links: [
+        { label: t('l_news'), href: '/actualites' },
+        { label: t('l_leaderboard'), href: '/#classement' },
+        { label: t('l_account'), href: '/compte' },
+      ],
+    },
+    {
+      title: t('col_shop'),
+      links: [
+        { label: t('l_catalog'), href: '/boutique' },
+        { label: t('l_b2b'), href: '/boutique#b2b' },
+        { label: t('l_preorder'), href: '/boutique' },
+        { label: t('l_find'), href: '/trouver-une-boutique' },
+      ],
+    },
+  ]
 
   return (
     <footer className="bg-bloom-gray-dark text-bloom-cream-light">
@@ -45,7 +47,7 @@ export default function Footer() {
               className="w-[150px] h-auto"
             />
             <p className="font-body text-xs text-bloom-violet-pale/50 leading-relaxed max-w-[200px]">
-              Bloom, le Jardin des Merveilles. Un jeu doux, poétique et mystérieux pour 7 à 77 ans.
+              {t('tagline')}
             </p>
           </div>
 
@@ -72,17 +74,17 @@ export default function Footer() {
 
         <div className="border-t border-bloom-violet-dark/30 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="font-body text-xs text-bloom-violet-pale/40">
-            © {year} Projet Bloom. Le Jardin des Merveilles. Tous droits réservés.
+            {t('rights', { year })}
           </p>
           <div className="flex gap-5 flex-wrap justify-center sm:justify-end">
             <Link href="/mentions-legales" className="font-body text-xs text-bloom-violet-pale/40 hover:text-bloom-violet-pale transition-colors">
-              Mentions légales
+              {t('legal')}
             </Link>
             <Link href="/politique-de-confidentialite" className="font-body text-xs text-bloom-violet-pale/40 hover:text-bloom-violet-pale transition-colors">
-              Confidentialité (RGPD)
+              {t('privacy')}
             </Link>
             <a href="#" className="font-body text-xs text-bloom-violet-pale/40 hover:text-bloom-violet-pale transition-colors">
-              CGV
+              {t('cgv')}
             </a>
           </div>
         </div>

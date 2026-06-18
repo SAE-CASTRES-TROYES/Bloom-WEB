@@ -2,18 +2,20 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 import { blurUp, blurIn, staggerParent, viewportOnce } from '@/lib/motion'
 import ElementDial from './ElementDial'
 
-const features = [
-  { icon: '/icons/plant-green.svg',  label: 'Coopération', desc: 'Jouez ensemble pour faire éclore les cinq fleurs légendaires.' },
-  { icon: '/icons/eye-green.svg',    label: 'Doute',       desc: 'Méfiez-vous des Ronces qui se cachent parmi vous.' },
-  { icon: '/icons/flower-green.svg', label: 'Poésie',      desc: 'Un univers poétique et mystérieux pour tous les âges.' },
-]
-
 export default function UniverseSection() {
+  const t = useTranslations('home.universe')
   const ref = useRef<HTMLElement>(null)
   const reduce = useReducedMotion()
+
+  const features = [
+    { icon: '/icons/plant-green.svg',  label: t('feat_coop'),   desc: t('feat_coop_desc') },
+    { icon: '/icons/eye-green.svg',    label: t('feat_doubt'),  desc: t('feat_doubt_desc') },
+    { icon: '/icons/flower-green.svg', label: t('feat_poetry'), desc: t('feat_poetry_desc') },
+  ]
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const sunY = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['8%', '-8%'])
 
@@ -40,22 +42,21 @@ export default function UniverseSection() {
           viewport={viewportOnce}
         >
           <motion.h2 variants={blurUp} className="font-title text-3xl sm:text-4xl text-bloom-black">
-            Bloom, le jardin
+            {t('heading')}
           </motion.h2>
 
           <motion.p variants={blurUp} className="font-body text-bloom-gray-dark/65 text-base leading-relaxed">
-            Chaque année, les Jardiniers coopèrent pour faire éclore cinq fleurs légendaires.
+            {t('intro')}
           </motion.p>
 
           <motion.blockquote variants={blurUp} className="border-l-4 border-bloom-rose pl-5 py-1">
             <p className="font-accent text-bloom-violet-dark text-xl sm:text-2xl italic leading-snug">
-              «&nbsp;Coopérez, fleurissez, mais gardez l&apos;œil ouvert. Tout peut fleurir. Même le doute.&nbsp;»
+              «&nbsp;{t('quote')}&nbsp;»
             </p>
           </motion.blockquote>
 
           <motion.p variants={blurUp} className="font-body text-bloom-gray-dark/65 text-sm leading-relaxed">
-            Un jeu de coopération et de trahison où chaque partie révèle une nouvelle dynamique de groupe.
-            Faites confiance à vos coéquipiers&nbsp;— mais méfiez-vous des Ronces.
+            {t('body')}
           </motion.p>
 
           <div className="grid grid-cols-3 gap-4 pt-2">

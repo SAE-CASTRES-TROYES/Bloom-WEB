@@ -1,17 +1,18 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
-const CARDS = [
-  { src: '/cards/carte_eau.webp',       name: 'Eau' },
-  { src: '/cards/carte_soleil.webp',    name: 'Soleil' },
-  { src: '/cards/carte_terre.webp',     name: 'Terre' },
-  { src: '/cards/carte_bourasque.webp', name: 'Bourrasque' },
-  { src: '/cards/carte_epines.webp',    name: 'Épines' },
-  { src: '/cards/carte_mousse.webp',    name: 'Mousse' },
-  { src: '/cards/carte_pollen.webp',    name: 'Pollen' },
-  { src: '/cards/carte_seve.webp',      name: 'Sève' },
-  { src: '/cards/carte_dos_bloom.webp', name: 'Bloom' },
+const CARD_DEFS = [
+  { src: '/cards/carte_eau.webp',       key: 'water' },
+  { src: '/cards/carte_soleil.webp',    key: 'sun' },
+  { src: '/cards/carte_terre.webp',     key: 'earth' },
+  { src: '/cards/carte_bourasque.webp', key: 'gust' },
+  { src: '/cards/carte_epines.webp',    key: 'thorn' },
+  { src: '/cards/carte_mousse.webp',    key: 'moss' },
+  { src: '/cards/carte_pollen.webp',    key: 'pollen' },
+  { src: '/cards/carte_seve.webp',      key: 'purifying_sap' },
+  { src: '/cards/carte_dos_bloom.webp', key: 'bloom' },
 ]
 
 const fadeEdges =
@@ -35,7 +36,9 @@ function Card({ src, name }: { src: string; name: string }) {
 
 export default function ResourceMarquee() {
   const reduce = useReducedMotion()
-  const loop = [...CARDS, ...CARDS]
+  const t = useTranslations('cards')
+  const cards = CARD_DEFS.map((c) => ({ src: c.src, name: t(c.key) }))
+  const loop = [...cards, ...cards]
 
   return (
     <div className={`relative overflow-hidden py-8 ${fadeEdges}`}>

@@ -43,7 +43,7 @@ export default function StoreLocatorMap({ retailers }: { retailers: Retailer[] }
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Rechercher une boutique..."
+          placeholder={t('search_ph')}
           className="border border-bloom-violet-light rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-bloom-violet-dark transition-colors min-w-[200px]"
         />
         <select
@@ -51,17 +51,17 @@ export default function StoreLocatorMap({ retailers }: { retailers: Retailer[] }
           onChange={(e) => setCountry(e.target.value)}
           className="border border-bloom-violet-light rounded-xl px-4 py-2 text-sm bg-white focus:outline-none"
         >
-          {COUNTRIES.map((c) => <option key={c}>{c}</option>)}
+          {COUNTRIES.map((c) => <option key={c} value={c}>{c === 'Tous' ? t('all') : c}</option>)}
         </select>
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
           className="border border-bloom-violet-light rounded-xl px-4 py-2 text-sm bg-white focus:outline-none"
         >
-          {TYPES.map((tp) => <option key={tp}>{tp}</option>)}
+          {TYPES.map((tp) => <option key={tp} value={tp}>{tp === 'Tous' ? t('all') : tp}</option>)}
         </select>
         <span className="font-body text-sm text-bloom-violet-medium self-center">
-          {filtered.length} revendeur{filtered.length !== 1 ? 's' : ''}
+          {t('count', { count: filtered.length })}
         </span>
       </div>
 
@@ -80,7 +80,7 @@ export default function StoreLocatorMap({ retailers }: { retailers: Retailer[] }
               {r.website && (
                 <a href={r.website} target="_blank" rel="noopener noreferrer"
                   className="font-body text-xs text-bloom-rose hover:underline mt-1">
-                  Visiter le site →
+                  {t('visit')}
                 </a>
               )}
             </div>

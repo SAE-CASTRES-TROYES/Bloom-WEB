@@ -5,19 +5,20 @@ import {
   motion, AnimatePresence, useReducedMotion,
   useMotionValue, useSpring, useTransform,
 } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
-type Flower = { src: string; name: string; accent: string; ring: string }
-
-const FLOWERS: Flower[] = [
-  { src: '/cards/lavande.webp', name: 'Lavande', accent: 'text-bloom-violet-medium', ring: 'ring-bloom-violet-medium' },
-  { src: '/cards/tulipe.webp',  name: 'Tulipe',  accent: 'text-bloom-rose',          ring: 'ring-bloom-rose' },
-  { src: '/cards/dahlia.webp',  name: 'Dahlia',  accent: 'text-bloom-rose',          ring: 'ring-bloom-rose' },
-  { src: '/cards/lys.webp',     name: 'Lys',     accent: 'text-bloom-gold',          ring: 'ring-bloom-gold' },
-  { src: '/cards/mimosa.webp',  name: 'Mimosa',  accent: 'text-bloom-gold',          ring: 'ring-bloom-gold' },
+const FLOWER_DEFS = [
+  { src: '/cards/lavande.webp', key: 'lavender', accent: 'text-bloom-violet-medium', ring: 'ring-bloom-violet-medium' },
+  { src: '/cards/tulipe.webp',  key: 'tulip',    accent: 'text-bloom-rose',          ring: 'ring-bloom-rose' },
+  { src: '/cards/dahlia.webp',  key: 'dahlia',   accent: 'text-bloom-rose',          ring: 'ring-bloom-rose' },
+  { src: '/cards/lys.webp',     key: 'lily',     accent: 'text-bloom-gold',          ring: 'ring-bloom-gold' },
+  { src: '/cards/mimosa.webp',  key: 'mimosa',   accent: 'text-bloom-gold',          ring: 'ring-bloom-gold' },
 ]
 
 export default function FlowerShowcase() {
   const reduce = useReducedMotion()
+  const t = useTranslations('cards')
+  const FLOWERS = FLOWER_DEFS.map((f) => ({ ...f, name: t(f.key) }))
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
   const flower = FLOWERS[active]
@@ -96,7 +97,7 @@ export default function FlowerShowcase() {
       </div>
 
       {/* selector */}
-      <div className="flex items-center gap-2.5" role="tablist" aria-label="Fleurs légendaires">
+      <div className="flex items-center gap-2.5" role="tablist" aria-label={t('flowers_aria')}>
         {FLOWERS.map((f, i) => (
           <button
             key={f.name}

@@ -84,7 +84,7 @@ export default function Navbar({ user }: { user: NavUser }) {
           {isAdmin && (
             <li>
               <Link href="/admin" className="inline-flex items-center gap-1.5 text-bloom-rose hover:text-bloom-rose-dark transition-colors">
-                <ShieldCheck size={18} /> Admin
+                <ShieldCheck size={18} /> {t('admin')}
               </Link>
             </li>
           )}
@@ -93,7 +93,7 @@ export default function Navbar({ user }: { user: NavUser }) {
         {/* centre — l'icotype : élément phare + CTA retour accueil */}
         <Link
           href="/"
-          aria-label="Bloom — retour à l'accueil"
+          aria-label={t('home_aria')}
           className="group order-first md:order-none justify-self-center flex items-center"
         >
           <Image
@@ -140,7 +140,7 @@ export default function Navbar({ user }: { user: NavUser }) {
                 {t('login')}
               </Link>
               <Link href="/inscription" className={btn('soft', 'sm')}>
-                Inscription
+                {t('register')}
               </Link>
             </>
           )}
@@ -180,11 +180,11 @@ export default function Navbar({ user }: { user: NavUser }) {
                 {isAdmin && (
                   <Link href="/admin" onClick={() => setOpen(false)}
                     className="font-body text-sm text-bloom-rose py-2 flex items-center gap-2">
-                    <ShieldCheck size={15}/> Admin
+                    <ShieldCheck size={15}/> {t('admin')}
                   </Link>
                 )}
                 <Link href="/compte" onClick={() => setOpen(false)} className={btn('soft', 'sm')}>
-                  Mon profil ({user.pseudo})
+                  {t('profile')} ({user.pseudo})
                 </Link>
               </>
             ) : (
@@ -194,7 +194,7 @@ export default function Navbar({ user }: { user: NavUser }) {
                   <User size={15}/> {t('login')}
                 </Link>
                 <Link href="/inscription" onClick={() => setOpen(false)} className={btn('soft', 'sm')}>
-                  Inscription
+                  {t('register')}
                 </Link>
                 <Link href="/jeu" onClick={() => setOpen(false)} className={btn('primary', 'sm')}>
                   {t('play')}

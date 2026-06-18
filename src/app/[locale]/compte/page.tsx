@@ -34,13 +34,13 @@ export default async function ComptePage() {
             }
           </div>
           <div>
-            <span className="font-accent text-bloom-rose text-base italic">Bienvenue,</span>
+            <span className="font-accent text-bloom-rose text-base">{t('welcome')}</span>
             <h1 className="font-title text-3xl text-bloom-violet-dark leading-tight">
               {profile?.pseudo || user.email?.split('@')[0]}
             </h1>
             {profile?.role === 'retailer' && (
               <span className="font-body text-xs bg-bloom-gold/20 text-bloom-black px-2 py-0.5 rounded-full border border-bloom-gold/40">
-                Revendeur B2B
+                {t('retailer_badge')}
               </span>
             )}
           </div>
@@ -50,8 +50,8 @@ export default async function ComptePage() {
           {[
             { value: totalScore.toLocaleString('fr-FR'), label: t('score'), icon: '🏆' },
             { value: gamesPlayed, label: t('games_played'), icon: '🎴' },
-            { value: `${winRate}%`, label: 'Victoires', icon: '🌸' },
-            { value: profile?.role === 'retailer' ? 'Pro' : 'Joueur', label: 'Statut', icon: profile?.role === 'retailer' ? '🏪' : '🌿' },
+            { value: `${winRate}%`, label: t('wins'), icon: '🌸' },
+            { value: profile?.role === 'retailer' ? t('status_pro') : t('status_player'), label: t('status'), icon: profile?.role === 'retailer' ? '🏪' : '🌿' },
           ].map(({ value, label, icon }) => (
             <div key={label} className="bg-white rounded-2xl p-4 border border-bloom-violet-light/20 shadow-sm flex flex-col gap-1 items-center text-center">
               <span className="text-2xl">{icon}</span>
@@ -67,16 +67,16 @@ export default async function ComptePage() {
 
         {orders && orders.length > 0 && (
           <section className="flex flex-col gap-4">
-            <h2 className="font-title text-xl text-bloom-violet-dark">Mes commandes</h2>
+            <h2 className="font-title text-xl text-bloom-violet-dark">{t('orders_title')}</h2>
             <div className="flex flex-col gap-3">
               {orders.map((order) => (
                 <div key={order.id} className="bg-white rounded-2xl p-4 border border-bloom-violet-light/20 shadow-sm flex items-center justify-between">
                   <div>
                     <p className="font-body text-sm font-medium text-bloom-black">
-                      Commande du {new Date(order.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      {t('order_date', { date: new Date(order.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) })}
                     </p>
                     <p className="font-body text-xs text-bloom-violet-medium mt-0.5">
-                      {order.status === 'paid' ? '✅ Payée' : order.status === 'pending' ? '⏳ En attente' : order.status}
+                      {order.status === 'paid' ? t('status_paid') : order.status === 'pending' ? t('status_pending') : order.status}
                     </p>
                   </div>
                   <span className="font-title text-bloom-rose">

@@ -6,6 +6,7 @@ import { Mail, Store, MapPin, Flower2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { blurUp, staggerParent, viewportOnce } from '@/lib/motion'
 import { btn, iconBadge } from '@/lib/ui'
 
@@ -18,15 +19,16 @@ const schema = z.object({
 })
 type FormData = z.infer<typeof schema>
 
-const contactLinks = [
-  { Icon: Mail,   text: 'bonjour@bloom-jeu.fr', sub: 'Réponse sous 4h', href: 'mailto:bonjour@bloom-jeu.fr' },
-  { Icon: Store,  text: 'Vous êtes revendeur ?', sub: 'Accédez à l\'Espace pro B2B', href: '/boutique#b2b' },
-  { Icon: MapPin, text: 'Trouver une boutique', sub: 'Carte des revendeurs', href: '/trouver-une-boutique' },
-]
-
 export default function ContactSection() {
+  const t = useTranslations('home.contact')
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const honeypotRef = useRef<HTMLInputElement>(null)
+
+  const contactLinks = [
+    { Icon: Mail,   text: 'bonjour@bloom-jeu.fr', sub: t('link_email_sub'), href: 'mailto:bonjour@bloom-jeu.fr' },
+    { Icon: Store,  text: t('link_b2b'),          sub: t('link_b2b_sub'),   href: '/boutique#b2b' },
+    { Icon: MapPin, text: t('link_map'),          sub: t('link_map_sub'),   href: '/trouver-une-boutique' },
+  ]
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } =
     useForm<FormData>({ resolver: zodResolver(schema) })
@@ -63,11 +65,11 @@ export default function ContactSection() {
         >
           <motion.div variants={blurUp} className="flex flex-col gap-2">
             <h2 className="font-title text-4xl sm:text-5xl text-white leading-tight">
-              Une question ?<br />
-              <span className="text-bloom-gold">Écrivez-nous.</span>
+              {t('eyebrow_q')}<br />
+              <span className="text-bloom-gold">{t('eyebrow_a')}</span>
             </h2>
             <p className="font-body text-bloom-violet-pale/70 text-base leading-relaxed mt-3 max-w-sm">
-              Une question sur Bloom, une commande ou une collaboration ? Nous vous répondons rapidement.
+              {t('description')}
             </p>
           </motion.div>
 
@@ -100,8 +102,8 @@ export default function ContactSection() {
           {status === 'success' ? (
             <div className="bg-white rounded-2xl p-8 text-center flex flex-col items-center gap-4">
               <Flower2 size={44} className="text-bloom-rose" />
-              <h3 className="font-title text-xl text-bloom-black">Message envoyé !</h3>
-              <p className="font-body text-sm text-bloom-gray-dark/70">Nous vous répondrons sous 4h.</p>
+              <h3 className="font-title text-xl text-bloom-black">{t('success_title')}</h3>
+              <p className="font-body text-sm text-bloom-gray-dark/70">{t('success_body')}</p>
             </div>
           ) : (
             <form
@@ -121,7 +123,7 @@ export default function ContactSection() {
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
                   <label className="font-body text-xs font-medium text-bloom-gray-dark">
-                    Prénom <span className="text-bloom-rose">*</span>
+                    {t('firstname')} <span className="text-bloom-rose">*</span>
                   </label>
                   <input
                     {...register('prenom')}
@@ -132,7 +134,7 @@ export default function ContactSection() {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="font-body text-xs font-medium text-bloom-gray-dark">
-                    Nom <span className="text-bloom-rose">*</span>
+                    {t('lastname')} <span className="text-bloom-rose">*</span>
                   </label>
                   <input
                     {...register('nom')}
@@ -145,7 +147,7 @@ export default function ContactSection() {
 
               <div className="flex flex-col gap-1.5">
                 <label className="font-body text-xs font-medium text-bloom-gray-dark">
-                  Adresse e-mail <span className="text-bloom-rose">*</span>
+                  {t('email')} <span className="text-bloom-rose">*</span>
                 </label>
                 <input
                   {...register('email')}
@@ -158,7 +160,7 @@ export default function ContactSection() {
 
               <div className="flex flex-col gap-1.5">
                 <label className="font-body text-xs font-medium text-bloom-gray-dark">
-                  Votre message
+                  {t('message')}
                 </label>
                 <textarea
                   {...register('message')}
@@ -177,19 +179,19 @@ export default function ContactSection() {
                   className="mt-0.5 accent-bloom-violet-dark"
                 />
                 <label htmlFor="gdpr-contact" className="font-body text-xs text-bloom-gray-dark/60 leading-relaxed">
-                  J&apos;accepte la politique de confidentialité
+                  {t('gdpr')}
                 </label>
               </div>
               {errors.gdpr && <p className="text-xs text-bloom-rose -mt-2">{errors.gdpr.message}</p>}
 
-              {status === 'error' && <p className="text-xs text-bloom-rose">Une erreur est survenue, réessayez.</p>}
+              {status === 'error' && <p className="text-xs text-bloom-rose">{t('error')}</p>}
 
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className={`${btn('violet', 'md')} w-full mt-1`}
               >
-                {isSubmitting ? 'Envoi...' : 'Envoyer'}
+                {isSubmitting ? t('sending') : t('submit')}
               </button>
             </form>
           )}

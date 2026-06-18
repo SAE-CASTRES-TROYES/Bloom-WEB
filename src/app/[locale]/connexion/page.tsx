@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createClient } from '@/lib/supabase/client'
-import Image from 'next/image'
 
 const schema = z.object({
   email: z.string().email(),
@@ -43,8 +42,7 @@ export default function ConnexionPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-sm flex flex-col gap-8">
-        <div className="flex flex-col items-center gap-4">
-          <Image src="/brand/logo.svg" alt="Bloom" width={80} height={32} />
+        <div className="flex flex-col items-center gap-2">
           <h1 className="font-title text-3xl text-bloom-violet-dark">{t('login_title')}</h1>
         </div>
 

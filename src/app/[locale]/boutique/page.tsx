@@ -29,7 +29,7 @@ export default async function BoutiquePage() {
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-12">
         <div className="flex flex-col gap-2">
-          <span className="font-accent text-bloom-rose text-lg">Commander</span>
+          <span className="font-accent text-bloom-rose text-lg">{t('eyebrow')}</span>
           <h1 className="font-title text-5xl text-bloom-violet-dark">{t('title')}</h1>
         </div>
 
@@ -42,9 +42,7 @@ export default async function BoutiquePage() {
         ) : (
           <div className="text-center py-24 bg-white rounded-2xl border border-bloom-violet-light/20">
             <p className="text-5xl mb-4">🌱</p>
-            <p className="font-body text-bloom-violet-medium">
-              La boutique ouvre bientôt. Revenez vite !
-            </p>
+            <p className="font-body text-bloom-violet-medium">{t('empty')}</p>
           </div>
         )}
 
@@ -53,37 +51,33 @@ export default async function BoutiquePage() {
         ) : (
           <section className="border-t border-bloom-violet-light pt-10 flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              <span className="font-accent text-bloom-rose text-lg">Professionnels</span>
-              <h2 className="font-title text-3xl text-bloom-violet-dark">Espace Revendeur B2B</h2>
-              <p className="font-body text-bloom-violet-medium max-w-lg">
-                Accédez au catalogue grossiste, aux tarifs pro et au kit de vente en créant un compte revendeur.
-              </p>
+              <span className="font-accent text-bloom-rose text-lg">{t('b2b.eyebrow')}</span>
+              <h2 className="font-title text-3xl text-bloom-violet-dark">{t('teaser.title')}</h2>
+              <p className="font-body text-bloom-violet-medium max-w-lg">{t('teaser.body')}</p>
             </div>
 
             {isLoggedIn ? (
               <div className="bg-bloom-gold/10 border border-bloom-gold/30 rounded-2xl p-6 flex items-start gap-4 max-w-lg">
                 <span className="text-2xl shrink-0">ℹ️</span>
                 <div>
-                  <p className="font-title text-base text-bloom-black">Vous n&apos;êtes pas revendeur</p>
-                  <p className="font-body text-sm text-bloom-gray-dark/70 mt-1">
-                    Pour accéder à l&apos;espace B2B, créez un nouveau compte avec le statut <strong>Revendeur</strong>.
-                  </p>
-                  <Link href="/inscription" className="font-body text-sm text-bloom-rose hover:underline mt-2 inline-block">
-                    Créer un compte revendeur →
+                  <p className="font-title text-base text-bloom-black">{t('teaser.not_retailer_title')}</p>
+                  <p className="font-body text-sm text-bloom-gray-dark/70 mt-1">{t('teaser.not_retailer_body')}</p>
+                  <Link href="/inscription?role=retailer" className="font-body text-sm text-bloom-rose hover:underline mt-2 inline-block">
+                    {t('teaser.create_account')}
                   </Link>
                 </div>
               </div>
             ) : (
               <div className="flex gap-3 flex-wrap">
-                {/* Précommande : non-revendeur → création d'un compte revendeur */}
-                <Link href="/inscription" className={btn('primary', 'md')}>
-                  Précommander
+                {/* Précommande : non-revendeur → création d'un compte revendeur (rôle pré-sélectionné) */}
+                <Link href="/inscription?role=retailer" className={btn('primary', 'md')}>
+                  {t('teaser.preorder')}
                 </Link>
-                <Link href="/inscription" className={btn('violet', 'md')}>
-                  S&apos;inscrire comme revendeur
+                <Link href="/inscription?role=retailer" className={btn('violet', 'md')}>
+                  {t('teaser.register')}
                 </Link>
                 <Link href="/connexion" className={btn('outline', 'md')}>
-                  Se connecter
+                  {t('teaser.login')}
                 </Link>
               </div>
             )}

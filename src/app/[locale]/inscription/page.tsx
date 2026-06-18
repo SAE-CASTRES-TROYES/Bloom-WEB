@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { btn } from '@/lib/ui'
 import { useTranslations } from 'next-intl'
 import { useRouter, Link } from '@/i18n/navigation'
@@ -8,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createClient } from '@/lib/supabase/client'
-import Image from 'next/image'
+import { Sprout, Store, Check } from 'lucide-react'
 
 const schema = z.object({
   pseudo: z.string().min(2).max(30),
@@ -29,11 +30,13 @@ type FormData = z.infer<typeof schema>
 export default function InscriptionPage() {
   const t = useTranslations('auth')
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const initialRole = searchParams.get('role') === 'retailer' ? 'retailer' : 'player'
   const [error, setError] = useState<string | null>(null)
   const supabase = createClient()
 
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } =
-    useForm<FormData>({ resolver: zodResolver(schema), defaultValues: { role: 'player' } })
+    useForm<FormData>({ resolver: zodResolver(schema), defaultValues: { role: initialRole } })
 
   const selectedRole = watch('role')
 
@@ -58,30 +61,41 @@ export default function InscriptionPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md flex flex-col gap-8">
-        <div className="flex flex-col items-center gap-4">
-          <Image src="/brand/logo.svg" alt="Bloom" width={80} height={32} />
+        <div className="flex flex-col items-center gap-2">
           <h1 className="font-title text-3xl text-bloom-violet-dark">{t('register_title')}</h1>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           {[
-            { value: 'player', emoji: '🌿', title: 'Joueur', desc: 'Je veux jouer à Bloom' },
-            { value: 'retailer', emoji: '🏪', title: 'Revendeur B2B', desc: 'Je souhaite distribuer Bloom' },
-          ].map(({ value, emoji, title, desc }) => (
-            <label
-              key={value}
-              className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 cursor-pointer transition-all ${
-                selectedRole === value
-                  ? 'border-bloom-violet-dark bg-bloom-violet-pale'
-                  : 'border-bloom-violet-light/40 bg-white hover:border-bloom-violet-light'
-              }`}
-            >
-              <input {...register('role')} type="radio" value={value} className="sr-only" />
-              <span className="text-2xl">{emoji}</span>
-              <p className="font-title text-sm text-bloom-violet-dark text-center">{title}</p>
-              <p className="font-body text-xs text-bloom-violet-medium text-center leading-relaxed">{desc}</p>
-            </label>
-          ))}
+            { value: 'player', Icon: Sprout, title: t('role_player'), desc: t('role_player_desc') },
+            { value: 'retailer', Icon: Store, title: t('role_retailer'), desc: t('role_retailer_desc') },
+          ].map(({ value, Icon, title, desc }) => {
+            const active = selectedRole === value
+            return (
+              <label
+                key={value}
+                className={`relative flex flex-col items-center text-center gap-3 p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 ${
+                  active
+                    ? 'border-bloom-violet-dark bg-bloom-violet-pale shadow-md shadow-bloom-violet-light/40'
+                    : 'border-bloom-violet-light/40 bg-white hover:border-bloom-violet-medium hover:-translate-y-0.5'
+                }`}
+              >
+                <input {...register('role')} type="radio" value={value} className="sr-only" />
+                {active && (
+                  <span className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-bloom-violet-dark text-white flex items-center justify-center">
+                    <Check size={13} strokeWidth={3} />
+                  </span>
+                )}
+                <span className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${
+                  active ? 'bg-bloom-violet-dark text-white' : 'bg-bloom-violet-pale text-bloom-violet-dark'
+                }`}>
+                  <Icon size={24} strokeWidth={2} />
+                </span>
+                <p className="font-title text-base text-bloom-violet-dark">{title}</p>
+                <p className="font-body text-xs text-bloom-violet-medium leading-relaxed">{desc}</p>
+              </label>
+            )
+          })}
         </div>
 
         <form
@@ -103,11 +117,11 @@ export default function InscriptionPage() {
           {selectedRole === 'retailer' && (
             <>
               <div className="flex flex-col gap-1.5">
-                <label className="font-body text-sm font-medium text-bloom-gray-dark">Nom de la société</label>
+                <label className="font-body text-sm font-medium text-bloom-gray-dark">{t('company')}</label>
                 <input {...register('company')} placeholder="Ma Boutique de Jeux" className="border border-bloom-violet-light rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-bloom-violet-dark transition-colors" />
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="font-body text-sm font-medium text-bloom-gray-dark">SIRET (optionnel)</label>
+                <label className="font-body text-sm font-medium text-bloom-gray-dark">{t('siret')}</label>
                 <input {...register('siret')} placeholder="123 456 789 00012" className="border border-bloom-violet-light rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:border-bloom-violet-dark transition-colors" />
               </div>
               <div className="bg-bloom-gold/10 border border-bloom-gold/30 rounded-xl p-3">

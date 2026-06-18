@@ -23,7 +23,7 @@ export default async function LeaderboardSection() {
             {t('title')}
           </h2>
           <p className="font-body text-bloom-gray-dark/70 text-base leading-relaxed max-w-sm">
-            Gagnez des parties, grimpez la saison et faites fleurir votre légende.
+            {t('description')}
           </p>
         </div>
 

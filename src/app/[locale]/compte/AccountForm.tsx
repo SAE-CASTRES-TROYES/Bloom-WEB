@@ -99,7 +99,7 @@ export default function AccountForm({ user, profile }: { user: User; profile: Pr
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="font-body text-sm font-medium text-bloom-gray-dark">Mot de passe</label>
+          <label className="font-body text-sm font-medium text-bloom-gray-dark">{t('password')}</label>
           <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
             <input
               value="••••••••••"
@@ -115,14 +115,14 @@ export default function AccountForm({ user, profile }: { user: User; profile: Pr
               disabled={resetState === 'sending'}
               className={btn('outline', 'sm')}
             >
-              {resetState === 'sending' ? 'Envoi...' : 'Réinitialiser'}
+              {resetState === 'sending' ? t('reset_sending') : t('reset')}
             </button>
           </div>
           {resetState === 'sent' && (
-            <p className="text-xs text-bloom-green font-semibold">E-mail de réinitialisation envoyé à {user.email}.</p>
+            <p className="text-xs text-bloom-green font-semibold">{t('reset_sent', { email: user.email ?? '' })}</p>
           )}
           {resetState === 'error' && (
-            <p className="text-xs text-bloom-rose">Échec de l&apos;envoi, réessayez.</p>
+            <p className="text-xs text-bloom-rose">{t('reset_error')}</p>
           )}
         </div>
 
@@ -142,7 +142,7 @@ export default function AccountForm({ user, profile }: { user: User; profile: Pr
         onClick={handleLogout}
         className="self-start font-body text-sm text-bloom-rose hover:underline"
       >
-        Se déconnecter
+        {t('logout')}
       </button>
     </div>
   )

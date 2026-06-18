@@ -2,27 +2,32 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
-type Element = { src: string; name: string; kind: 'Ressource' | 'Objet' }
-
-const ELEMENTS: Element[] = [
-  { src: '/cards/soleil.webp',          name: 'Soleil',             kind: 'Ressource' },
-  { src: '/cards/eau.webp',             name: 'Eau',                kind: 'Ressource' },
-  { src: '/cards/terre.webp',           name: 'Terre',              kind: 'Ressource' },
-  { src: '/cards/vent.webp',            name: 'Vent',               kind: 'Ressource' },
-  { src: '/cards/poudre-magique.webp',  name: 'Poudre magique',     kind: 'Objet' },
-  { src: '/cards/seve-purifiante.webp', name: 'Sève purifiante',    kind: 'Objet' },
-  { src: '/cards/bouclier-mousse.webp', name: 'Bouclier de mousse', kind: 'Objet' },
-  { src: '/cards/bourrasque.webp',      name: 'Bourrasque',         kind: 'Objet' },
-]
+const ELEMENT_DEFS = [
+  { src: '/cards/soleil.webp',          key: 'sun',           kind: 'resource' },
+  { src: '/cards/eau.webp',             key: 'water',         kind: 'resource' },
+  { src: '/cards/terre.webp',           key: 'earth',         kind: 'resource' },
+  { src: '/cards/vent.webp',            key: 'wind',          kind: 'resource' },
+  { src: '/cards/poudre-magique.webp',  key: 'magic_powder',  kind: 'object' },
+  { src: '/cards/seve-purifiante.webp', key: 'purifying_sap', kind: 'object' },
+  { src: '/cards/bouclier-mousse.webp', key: 'moss_shield',   kind: 'object' },
+  { src: '/cards/bourrasque.webp',      key: 'gust',          kind: 'object' },
+] as const
 
 const RADIUS = 41 // % of container
-const N = ELEMENTS.length
+const N = ELEMENT_DEFS.length
 
 export default function ElementDial() {
   const reduce = useReducedMotion()
+  const t = useTranslations('cards')
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
+  const ELEMENTS = ELEMENT_DEFS.map((e) => ({
+    src: e.src,
+    name: t(e.key),
+    kind: e.kind === 'resource' ? t('kind_resource') : t('kind_object'),
+  }))
   const el = ELEMENTS[active]
 
   useEffect(() => {
@@ -33,7 +38,7 @@ export default function ElementDial() {
 
   return (
     <div
-      className="w-full max-w-[360px] mx-auto flex flex-col items-center gap-4"
+      className="w-full max-w-[420px] mx-auto flex flex-col items-center gap-4"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

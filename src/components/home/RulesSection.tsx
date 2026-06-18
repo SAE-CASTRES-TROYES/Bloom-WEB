@@ -2,39 +2,42 @@
 
 import { motion } from 'framer-motion'
 import { Sprout, Flame } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { blurUp, staggerParent, viewportOnce } from '@/lib/motion'
 import ResourceMarquee from './ResourceMarquee'
 
-const camps = [
-  {
-    key: 'jardiniers',
-    Icon: Sprout,
-    title: 'Les Jardiniers',
-    badge: 'Coopèrent',
-    badgeStyle: 'text-bloom-green bg-bloom-green/10 border border-bloom-green/20',
-    bg: 'bg-bloom-green-light border-bloom-green/20',
-    iconBg: 'bg-bloom-green text-white',
-    desc: 'Coopèrent pour faire éclore les fleurs et protéger le jardin de la corruption qui le menace.',
-  },
-  {
-    key: 'ronces',
-    Icon: Flame,
-    title: 'Les Ronces',
-    badge: 'Sabotent',
-    badgeStyle: 'text-bloom-rose bg-bloom-rose/10 border border-bloom-rose/20',
-    bg: 'bg-bloom-rose-light border-bloom-rose/20',
-    iconBg: 'bg-bloom-rose text-white',
-    desc: 'Coopèrent pour planter et faire fleurir les cinq fleurs légendaires — en apparence seulement.',
-  },
-]
-
-const steps = [
-  { num: '01', title: 'Distribuez les rôles', desc: 'Chaque joueur reçoit secrètement une carte : Jardinier ou Ronce.' },
-  { num: '02', title: 'Faites éclore',        desc: 'Coopérez pour planter et faire fleurir les cinq fleurs légendaires.' },
-  { num: '03', title: 'Démasquez',             desc: 'Devinez, votez, démasquez les Ronces avant la dernière floraison.' },
-]
-
 export default function RulesSection() {
+  const t = useTranslations('home.rules')
+
+  const camps = [
+    {
+      key: 'jardiniers',
+      Icon: Sprout,
+      title: t('gardeners_title'),
+      badge: t('gardeners_badge'),
+      badgeStyle: 'text-bloom-green bg-bloom-green/10 border border-bloom-green/20',
+      bg: 'bg-bloom-green-light border-bloom-green/20',
+      iconBg: 'bg-bloom-green text-white',
+      desc: t('gardeners_desc'),
+    },
+    {
+      key: 'ronces',
+      Icon: Flame,
+      title: t('brambles_title'),
+      badge: t('brambles_badge'),
+      badgeStyle: 'text-bloom-rose bg-bloom-rose/10 border border-bloom-rose/20',
+      bg: 'bg-bloom-rose-light border-bloom-rose/20',
+      iconBg: 'bg-bloom-rose text-white',
+      desc: t('brambles_desc'),
+    },
+  ]
+
+  const steps = [
+    { num: '01', title: t('step1_title'), desc: t('step1_desc') },
+    { num: '02', title: t('step2_title'), desc: t('step2_desc') },
+    { num: '03', title: t('step3_title'), desc: t('step3_desc') },
+  ]
+
   return (
     <section id="regles" className="py-20 sm:py-28 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto flex flex-col gap-12">
@@ -47,10 +50,10 @@ export default function RulesSection() {
           viewport={viewportOnce}
         >
           <motion.h2 variants={blurUp} className="font-title text-4xl sm:text-5xl text-bloom-black">
-            Un jardin, deux camps
+            {t('heading')}
           </motion.h2>
           <motion.p variants={blurUp} className="font-body text-bloom-gray-dark/60 text-base max-w-md mx-auto leading-relaxed">
-            Coopérez autour de la table, mais méfiez-vous&nbsp;: les Ronces se cachent parmi les Jardiniers.
+            {t('subtitle')}
           </motion.p>
         </motion.div>
 
@@ -106,7 +109,7 @@ export default function RulesSection() {
           viewport={viewportOnce}
           transition={{ duration: 0.8 }}
         >
-          <p className="font-accent text-bloom-rose text-center text-xl mb-6">Les cartes du jardin</p>
+          <p className="font-accent text-bloom-rose text-center text-xl mb-6">{t('cards_heading')}</p>
           <ResourceMarquee />
         </motion.div>
       </div>

@@ -1,7 +1,6 @@
 'use client'
 
 import { useLocale } from 'next-intl'
-import { motion } from 'framer-motion'
 import { useRouter, usePathname } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 
@@ -25,19 +24,14 @@ export default function LocaleSwitcher() {
             key={loc}
             type="button"
             onClick={() => router.replace(pathname, { locale: loc })}
-            className={`relative font-title text-[13px] leading-none rounded-full px-3 py-1.5 transition-colors ${
-              active ? 'text-bloom-violet-dark' : 'text-bloom-gray-dark/70 hover:text-bloom-gray-dark'
+            className={`font-title text-[13px] leading-none rounded-full px-3 py-1.5 transition-colors duration-200 ${
+              active
+                ? 'bg-white text-bloom-violet-dark shadow-sm'
+                : 'text-bloom-gray-dark/70 hover:text-bloom-gray-dark'
             }`}
             aria-current={active ? 'true' : undefined}
           >
-            {active && (
-              <motion.span
-                layoutId="locale-pill"
-                className="absolute inset-0 bg-white rounded-full shadow-sm"
-                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-              />
-            )}
-            <span className="relative z-10">{labels[loc]}</span>
+            {labels[loc]}
           </button>
         )
       })}

@@ -43,7 +43,7 @@ export default function ForgotPasswordPage() {
           <div className="bg-bloom-green-light rounded-2xl p-8 text-center">
             <p className="text-3xl mb-3">📬</p>
             <p className="font-title text-lg text-bloom-black">
-              E-mail envoyé ! Vérifiez votre boîte de réception.
+              {t('forgot_sent')}
             </p>
           </div>
         ) : (

@@ -18,7 +18,7 @@ export default async function ActualitesPage() {
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
         <div className="flex flex-col gap-2">
-          <span className="font-accent text-bloom-rose text-lg">Blog &amp; Agenda</span>
+          <span className="font-accent text-bloom-rose text-lg">{t('eyebrow')}</span>
           <h1 className="font-title text-5xl text-bloom-violet-dark">{t('title')}</h1>
         </div>
 
@@ -33,18 +33,11 @@ export default async function ActualitesPage() {
           ))}
         </div>
 
-        {articles.length > 0 ? (
+        {articles.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map((article) => (
               <NewsCard key={article.id} article={article} />
             ))}
-          </div>
-        ) : (
-          <div className="text-center py-24">
-            <p className="text-5xl mb-4">🌸</p>
-            <p className="font-body text-bloom-violet-medium text-lg">
-              Les premières actualités arrivent bientôt...
-            </p>
           </div>
         )}
       </div>
