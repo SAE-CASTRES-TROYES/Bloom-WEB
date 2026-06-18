@@ -202,7 +202,8 @@
     "confirm_sent_body": "Se ha enviado un correo de confirmación para activar tu cuenta.",
     "err_rate_limit": "Demasiados intentos de envío de correo. Inténtalo de nuevo en unos minutos.",
     "err_email_invalid": "Esta dirección de correo fue rechazada. Prueba con otra.",
-    "err_exists": "Ya existe una cuenta con esta dirección de correo."
+    "err_exists": "Ya existe una cuenta con esta dirección de correo.",
+    "err_generic": "Se ha producido un error, inténtalo de nuevo."
   },
   "account": {
     "title": "Mi cuenta",

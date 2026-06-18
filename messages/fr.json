@@ -202,7 +202,8 @@
     "confirm_sent_body": "Un e-mail de confirmation vous a été envoyé pour activer votre compte.",
     "err_rate_limit": "Trop de tentatives d'envoi d'e-mail. Réessayez dans quelques minutes.",
     "err_email_invalid": "Cette adresse e-mail est refusée. Essayez une autre adresse.",
-    "err_exists": "Un compte existe déjà avec cette adresse e-mail."
+    "err_exists": "Un compte existe déjà avec cette adresse e-mail.",
+    "err_generic": "Une erreur est survenue, réessayez."
   },
   "account": {
     "title": "Mon compte",

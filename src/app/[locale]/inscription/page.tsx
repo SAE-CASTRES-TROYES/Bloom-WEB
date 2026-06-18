@@ -32,7 +32,6 @@ export default function InscriptionPage() {
   const searchParams = useSearchParams()
   const initialRole = searchParams.get('role') === 'retailer' ? 'retailer' : 'player'
   const [error, setError] = useState<string | null>(null)
-  const [emailSent, setEmailSent] = useState(false)
   const supabase = createClient()
 
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } =
@@ -42,46 +41,33 @@ export default function InscriptionPage() {
 
   async function onSubmit(data: FormData) {
     setError(null)
-    const { data: result, error } = await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-      options: {
-        data: {
-          pseudo: data.pseudo,
-          role: data.role,
-          company: data.company,
-        },
-      },
+    // Inscription serveur (service-role) : compte créé déjà confirmé, sans e-mail.
+    const res = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+        pseudo: data.pseudo,
+        role: data.role,
+        company: data.company,
+      }),
     })
-    if (error) {
-      // Messages plus clairs que ceux renvoyés bruts par Supabase
-      if (error.code === 'over_email_send_rate_limit') setError(t('err_rate_limit'))
-      else if (error.code === 'email_address_invalid') setError(t('err_email_invalid'))
-      else if (error.code === 'user_already_exists' || error.message.includes('already')) setError(t('err_exists'))
-      else setError(error.message)
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}))
+      if (res.status === 409 || body.error === 'user_already_exists') setError(t('err_exists'))
+      else if (body.message?.toLowerCase().includes('invalid')) setError(t('err_email_invalid'))
+      else setError(t('err_generic'))
       return
     }
-    // Session immédiate → connecté. Sinon, confirmation par e-mail requise.
-    if (result.session) router.push('/compte')
-    else setEmailSent(true)
-  }
-
-  if (emailSent) {
-    return (
-      <main className="min-h-screen flex items-center justify-center px-4 py-16">
-        <div className="w-full max-w-sm flex flex-col gap-6 text-center">
-          <h1 className="font-title text-3xl text-bloom-violet-dark">{t('register_title')}</h1>
-          <div className="bg-bloom-green-light rounded-2xl p-8 flex flex-col gap-3">
-            <p className="text-3xl">📬</p>
-            <p className="font-title text-lg text-bloom-black">{t('confirm_sent')}</p>
-            <p className="font-body text-sm text-bloom-gray-dark/70">{t('confirm_sent_body')}</p>
-          </div>
-          <Link href="/connexion" className="font-body text-sm text-bloom-rose font-semibold hover:underline">
-            {t('login_link')}
-          </Link>
-        </div>
-      </main>
-    )
+    // Connexion immédiate côté client.
+    const { error: signInErr } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    })
+    if (signInErr) { router.push('/connexion'); return }
+    router.push('/compte')
+    router.refresh()
   }
 
   return (

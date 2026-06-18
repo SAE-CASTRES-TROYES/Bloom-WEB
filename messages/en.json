@@ -202,7 +202,8 @@
     "confirm_sent_body": "A confirmation email has been sent to activate your account.",
     "err_rate_limit": "Too many email attempts. Please try again in a few minutes.",
     "err_email_invalid": "This email address was rejected. Try another address.",
-    "err_exists": "An account already exists with this email address."
+    "err_exists": "An account already exists with this email address.",
+    "err_generic": "Something went wrong, please try again."
   },
   "account": {
     "title": "My account",
