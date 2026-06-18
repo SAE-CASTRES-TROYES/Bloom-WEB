@@ -2,6 +2,18 @@ import { getTranslations } from 'next-intl/server'
 import { createClient } from '@/lib/supabase/server'
 import LeaderboardTable, { type LeaderboardEntry } from './LeaderboardTable'
 
+// Données de démonstration : affichées tant que le classement réel est vide.
+const DEMO_ENTRIES: LeaderboardEntry[] = [
+  { id: 'demo-1', pseudo: 'Lila Coquelicot', score: 9999, games_played: 142, avatar_url: null },
+  { id: 'demo-2', pseudo: 'Hugo Pivoine',    score: 9412, games_played: 128, avatar_url: null },
+  { id: 'demo-3', pseudo: 'Nina Glycine',    score: 8730, games_played: 119, avatar_url: null },
+  { id: 'demo-4', pseudo: 'Tom Bourgeon',    score: 8104, games_played: 110, avatar_url: null },
+  { id: 'demo-5', pseudo: 'Jade Camélia',    score: 7689, games_played: 103, avatar_url: null },
+  { id: 'demo-6', pseudo: 'Léo Chardon',     score: 7021, games_played: 95,  avatar_url: null },
+  { id: 'demo-7', pseudo: 'Mila Pensée',     score: 6587, games_played: 88,  avatar_url: null },
+  { id: 'demo-8', pseudo: 'Noé Genêt',       score: 6033, games_played: 81,  avatar_url: null },
+]
+
 export default async function LeaderboardSection() {
   const t = await getTranslations('home.leaderboard')
   const supabase = await createClient()
@@ -12,7 +24,8 @@ export default async function LeaderboardSection() {
     .order('score', { ascending: false })
     .limit(8)
 
-  const entries: LeaderboardEntry[] = error ? [] : (data as LeaderboardEntry[]) ?? []
+  const real: LeaderboardEntry[] = error ? [] : (data as LeaderboardEntry[]) ?? []
+  const entries = real.length > 0 ? real : DEMO_ENTRIES
 
   return (
     <section id="classement" className="py-20 sm:py-28 px-6 bg-bloom-gold">

@@ -3,19 +3,15 @@
 import { motion, useReducedMotion } from 'framer-motion'
 
 const CARDS = [
-  { src: '/cards/eau.webp',             name: 'Eau' },
-  { src: '/cards/soleil.webp',          name: 'Soleil' },
-  { src: '/cards/terre.webp',           name: 'Terre' },
-  { src: '/cards/vent.webp',            name: 'Vent' },
-  { src: '/cards/lavande.webp',         name: 'Lavande' },
-  { src: '/cards/tulipe.webp',          name: 'Tulipe' },
-  { src: '/cards/lys.webp',             name: 'Lys' },
-  { src: '/cards/mimosa.webp',          name: 'Mimosa' },
-  { src: '/cards/epine.webp',           name: 'Épine' },
-  { src: '/cards/poudre-magique.webp',  name: 'Poudre magique' },
-  { src: '/cards/seve-purifiante.webp', name: 'Sève purifiante' },
-  { src: '/cards/bouclier-mousse.webp', name: 'Bouclier de mousse' },
-  { src: '/cards/bourrasque.webp',      name: 'Bourrasque' },
+  { src: '/cards/carte_eau.webp',       name: 'Eau' },
+  { src: '/cards/carte_soleil.webp',    name: 'Soleil' },
+  { src: '/cards/carte_terre.webp',     name: 'Terre' },
+  { src: '/cards/carte_bourasque.webp', name: 'Bourrasque' },
+  { src: '/cards/carte_epines.webp',    name: 'Épines' },
+  { src: '/cards/carte_mousse.webp',    name: 'Mousse' },
+  { src: '/cards/carte_pollen.webp',    name: 'Pollen' },
+  { src: '/cards/carte_seve.webp',      name: 'Sève' },
+  { src: '/cards/carte_dos_bloom.webp', name: 'Bloom' },
 ]
 
 const fadeEdges =
@@ -27,10 +23,10 @@ function Card({ src, name }: { src: string; name: string }) {
     <motion.div
       whileHover={{ y: -10, scale: 1.05, rotate: -1.5 }}
       transition={{ type: 'spring', stiffness: 280, damping: 18 }}
-      className="shrink-0 w-32 flex flex-col items-center gap-2.5"
+      className="shrink-0 w-36 flex flex-col items-center gap-2.5"
     >
-      <div className="w-32 h-44 rounded-2xl bg-white shadow-md shadow-bloom-violet-light/30 border border-bloom-violet-light/30 overflow-hidden flex items-center justify-center p-2">
-        <img src={src} alt={name} className="w-full h-full object-contain" loading="lazy" />
+      <div className="w-36 aspect-[5/9] rounded-2xl overflow-hidden shadow-lg shadow-bloom-violet-dark/20 ring-1 ring-black/5">
+        <img src={src} alt={name} className="w-full h-full object-cover" loading="lazy" />
       </div>
       <span className="font-body text-xs text-bloom-gray-dark/70 text-center">{name}</span>
     </motion.div>

@@ -4,8 +4,8 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
-import Image from 'next/image'
 import { staggerParent, lineMask, blurUp, blurIn, EASE_OUT, SPRING } from '@/lib/motion'
+import FlowerShowcase from './FlowerShowcase'
 
 export default function HeroSection() {
   const t = useTranslations('home.hero')
@@ -70,26 +70,13 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="flex items-center justify-center order-first lg:order-last"
+          className="flex items-center justify-center order-first lg:order-last w-full"
           style={{ y: illustrationY }}
           variants={blurIn}
           initial="hidden"
           animate="visible"
         >
-          <motion.div
-            className="w-56 h-56 sm:w-72 sm:h-72 lg:w-[440px] lg:h-[440px]"
-            animate={reduce ? {} : { y: [0, -12, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <Image
-              src="/cards/lavande.webp"
-              alt="Bouquet de lavande"
-              width={440}
-              height={440}
-              className="w-full h-full object-contain drop-shadow-xl"
-              priority
-            />
-          </motion.div>
+          <FlowerShowcase />
         </motion.div>
       </div>
 

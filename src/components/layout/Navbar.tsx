@@ -39,13 +39,13 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+      <nav className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
 
-        <Link href="/" className="flex items-center shrink-0 group -my-2" aria-label="Bloom — accueil">
+        <Link href="/" className="flex items-center shrink-0 group -my-8" aria-label="Bloom — accueil">
           <Image
             src="/brand/icotype.png" alt="Bloom"
-            width={72} height={72}
-            className="w-[68px] h-[68px] object-contain group-hover:scale-110 transition-transform duration-300"
+            width={140} height={140}
+            className="w-[104px] h-[104px] object-contain group-hover:scale-110 transition-transform duration-300"
             priority
           />
         </Link>

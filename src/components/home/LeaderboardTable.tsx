@@ -12,13 +12,11 @@ export type LeaderboardEntry = {
   avatar_url: string | null
 }
 
-const AVATAR_COLORS = [
-  'bg-bloom-violet-medium',
-  'bg-bloom-rose',
-  'bg-bloom-green',
-  'bg-bloom-blue',
-  'bg-bloom-gold',
-]
+function initials(pseudo: string) {
+  const parts = pseudo.trim().split(/\s+/)
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toLowerCase()
+  return pseudo.slice(0, 2).toLowerCase()
+}
 
 export default function LeaderboardTable({ entries }: { entries: LeaderboardEntry[] }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -28,45 +26,48 @@ export default function LeaderboardTable({ entries }: { entries: LeaderboardEntr
   return (
     <motion.div
       ref={ref}
-      className="bg-white rounded-2xl overflow-hidden shadow-md"
+      className="rounded-3xl border border-bloom-gray-dark/15 bg-bloom-gold-light/30 overflow-hidden"
       initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
       animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
       transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="grid grid-cols-[2.5rem_1fr_5rem_5rem] gap-2 px-4 py-3 bg-bloom-green text-white text-xs font-semibold uppercase tracking-wide">
-        <span>#</span>
-        <span>{t('player')}</span>
-        <span className="text-right hidden sm:block">{t('games')}</span>
-        <span className="text-right">{t('score')}</span>
+      <div className="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-bloom-gray-dark/10">
+        <span className="font-body text-sm font-semibold tracking-wide text-bloom-gray-dark">
+          {t('player')}
+        </span>
+        <span className="font-body text-xs font-semibold text-bloom-violet-dark bg-bloom-violet-light/70 border border-bloom-violet-medium/30 rounded-full px-4 py-1.5">
+          {t('score')}
+        </span>
       </div>
 
       {entries.length > 0 ? entries.map((entry, i) => (
         <motion.div
           key={entry.id}
-          className="grid grid-cols-[2.5rem_1fr_5rem_5rem] gap-2 px-4 py-3 items-center border-b border-bloom-violet-light/10 last:border-0 hover:bg-bloom-cream/40 transition-colors"
+          className="flex items-center gap-3 sm:gap-4 px-5 sm:px-6 py-4 border-b border-bloom-gray-dark/10 last:border-0 hover:bg-bloom-gold-light/40 transition-colors"
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.15 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="font-title text-sm text-bloom-violet-medium">{i + 1}</span>
-          <div className="flex items-center gap-3 min-w-0">
-            <div className={`w-8 h-8 rounded-full ${AVATAR_COLORS[i % AVATAR_COLORS.length]} flex items-center justify-center text-white text-xs font-bold shrink-0 overflow-hidden`}>
-              {entry.avatar_url
-                // eslint-disable-next-line @next/next/no-img-element
-                ? <img src={entry.avatar_url} alt="" className="w-full h-full object-cover" />
-                : entry.pseudo.charAt(0).toUpperCase()
-              }
-            </div>
-            <span className="font-body text-sm text-bloom-black font-medium truncate">{entry.pseudo}</span>
+          <span className={`font-title text-2xl sm:text-3xl w-7 text-center shrink-0 ${i < 3 ? 'text-bloom-black' : 'text-bloom-gray-dark/40'}`}>
+            {i + 1}
+          </span>
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-bloom-violet-medium flex items-center justify-center text-white text-xs font-bold shrink-0 overflow-hidden">
+            {entry.avatar_url
+              // eslint-disable-next-line @next/next/no-img-element
+              ? <img src={entry.avatar_url} alt="" className="w-full h-full object-cover" />
+              : initials(entry.pseudo)
+            }
           </div>
-          <span className="font-body text-xs text-bloom-violet-medium text-right hidden sm:block">{entry.games_played}</span>
-          <span className="font-title text-sm text-bloom-rose font-semibold text-right">
+          <span className="font-body text-sm font-semibold text-bloom-black truncate flex-1 min-w-0">
+            {entry.pseudo}
+          </span>
+          <span className="font-title text-base text-bloom-rose font-semibold shrink-0 tabular-nums">
             {entry.score.toLocaleString('fr-FR')}
           </span>
         </motion.div>
       )) : (
-        <div className="px-4 py-10 text-center">
-          <p className="font-body text-sm text-bloom-violet-medium">Le classement sera disponible après les premières parties.</p>
+        <div className="px-5 py-10 text-center">
+          <p className="font-body text-sm text-bloom-gray-dark/60">Le classement sera disponible après les premières parties.</p>
         </div>
       )}
     </motion.div>

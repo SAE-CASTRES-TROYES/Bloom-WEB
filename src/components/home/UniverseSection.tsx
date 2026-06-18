@@ -2,8 +2,8 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-import Image from 'next/image'
 import { blurUp, blurIn, staggerParent, viewportOnce } from '@/lib/motion'
+import ElementDial from './ElementDial'
 
 const features = [
   { icon: '/icons/plant-green.svg',  label: 'Coopération', desc: 'Jouez ensemble pour faire éclore les cinq fleurs légendaires.' },
@@ -15,7 +15,6 @@ export default function UniverseSection() {
   const ref = useRef<HTMLElement>(null)
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const sunRotate = useTransform(scrollYProgress, [0, 1], reduce ? ['0deg', '0deg'] : ['-10deg', '10deg'])
   const sunY = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['8%', '-8%'])
 
   return (
@@ -23,22 +22,14 @@ export default function UniverseSection() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
 
         <motion.div
-          className="flex items-center justify-center order-2 lg:order-1"
-          style={{ rotate: sunRotate, y: sunY }}
+          className="flex items-center justify-center order-2 lg:order-1 w-full py-6"
+          style={{ y: sunY }}
           variants={blurIn}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
         >
-          <div className="w-52 h-52 sm:w-64 sm:h-64 lg:w-80 lg:h-80">
-            <Image
-              src="/cards/soleil.webp"
-              alt="Soleil illustré"
-              width={320}
-              height={320}
-              className="w-full h-full object-contain drop-shadow-lg"
-            />
-          </div>
+          <ElementDial />
         </motion.div>
 
         <motion.div
