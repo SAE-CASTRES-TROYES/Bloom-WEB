@@ -29,9 +29,9 @@ export default function LeaderboardTable({ entries }: { entries: LeaderboardEntr
     <motion.div
       ref={ref}
       className="bg-white rounded-2xl overflow-hidden shadow-md"
-      initial={{ opacity: 0, y: 30, scale: 0.97 }}
-      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
+      animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+      transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="grid grid-cols-[2.5rem_1fr_5rem_5rem] gap-2 px-4 py-3 bg-bloom-green text-white text-xs font-semibold uppercase tracking-wide">
         <span>#</span>
@@ -44,9 +44,9 @@ export default function LeaderboardTable({ entries }: { entries: LeaderboardEntr
         <motion.div
           key={entry.id}
           className="grid grid-cols-[2.5rem_1fr_5rem_5rem] gap-2 px-4 py-3 items-center border-b border-bloom-violet-light/10 last:border-0 hover:bg-bloom-cream/40 transition-colors"
-          initial={{ opacity: 0, x: -15 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.4, delay: 0.1 + i * 0.06 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.15 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="font-title text-sm text-bloom-violet-medium">{i + 1}</span>
           <div className="flex items-center gap-3 min-w-0">

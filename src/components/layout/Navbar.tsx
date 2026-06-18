@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
 import { Menu, X, ShoppingCart, User } from 'lucide-react'
 import LocaleSwitcher from './LocaleSwitcher'
 import { useCartStore } from '@/lib/store/cart'
+import { EASE_OUT } from '@/lib/motion'
 
 export default function Navbar() {
   const t = useTranslations('nav')
@@ -27,23 +29,25 @@ export default function Navbar() {
   ]
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${
-      scrolled
-        ? 'bg-bloom-cream-light/96 backdrop-blur-md shadow-sm shadow-bloom-violet-light/20'
-        : 'bg-bloom-cream-light/80 backdrop-blur-sm'
-    }`}>
+    <motion.header
+      initial={{ y: -24, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: EASE_OUT }}
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-bloom-cream-light/85 backdrop-blur-md shadow-sm shadow-bloom-violet-light/20'
+          : 'bg-transparent'
+      }`}
+    >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
 
-        <Link href="/" className="flex items-center gap-2 shrink-0 group">
+        <Link href="/" className="flex items-center shrink-0 group -my-2" aria-label="Bloom — accueil">
           <Image
-            src="/logo.svg" alt="Bloom"
-            width={34} height={34}
-            className="w-[34px] h-[34px] group-hover:scale-105 transition-transform"
+            src="/brand/icotype.png" alt="Bloom"
+            width={72} height={72}
+            className="w-[68px] h-[68px] object-contain group-hover:scale-110 transition-transform duration-300"
             priority
           />
-          <span className="font-title text-[1.25rem] text-bloom-violet-dark tracking-tight hidden sm:block">
-            Bloom
-          </span>
         </Link>
 
         <ul className="hidden md:flex items-center gap-7">
@@ -66,43 +70,43 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden md:flex items-center gap-2.5">
+        <div className="hidden md:flex items-center gap-3">
           <LocaleSwitcher />
 
-          <Link href="/panier" className="relative p-2 text-bloom-gray-dark/70 hover:text-bloom-violet-dark transition-colors">
-            <ShoppingCart size={18} />
-            {cartCount > 0 && (
+          {cartCount > 0 && (
+            <Link href="/panier" className="relative p-2 text-bloom-gray-dark/70 hover:text-bloom-violet-dark transition-colors">
+              <ShoppingCart size={18} />
               <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-bloom-rose text-white rounded-full text-[10px] font-bold flex items-center justify-center font-body">
                 {cartCount}
               </span>
-            )}
-          </Link>
+            </Link>
+          )}
 
           <Link
             href="/connexion"
-            className="font-body text-[0.85rem] text-bloom-violet-dark/80 hover:text-bloom-violet-dark transition-colors flex items-center gap-1.5 px-2 py-1"
+            className="font-body text-[0.9rem] font-medium text-bloom-gray-dark hover:text-bloom-violet-dark transition-colors flex items-center gap-1.5 px-1"
           >
-            <User size={15} />
+            <User size={16} />
             {t('login')}
           </Link>
 
           <Link
             href="/inscription"
-            className="font-body text-[0.85rem] font-semibold border border-bloom-violet-dark/60 text-bloom-violet-dark rounded-full px-5 py-1.5 hover:bg-bloom-violet-dark hover:text-white transition-all"
+            className="font-body text-[0.85rem] font-semibold bg-bloom-violet-light text-bloom-violet-dark rounded-full px-5 py-2 hover:bg-bloom-violet-medium hover:text-white transition-colors"
           >
             Inscription
           </Link>
         </div>
 
         <div className="md:hidden flex items-center gap-2">
-          <Link href="/panier" className="relative p-1.5 text-bloom-gray-dark/70">
-            <ShoppingCart size={18} />
-            {cartCount > 0 && (
+          {cartCount > 0 && (
+            <Link href="/panier" className="relative p-1.5 text-bloom-gray-dark/70">
+              <ShoppingCart size={18} />
               <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-bloom-rose text-white rounded-full text-[10px] font-bold flex items-center justify-center">
                 {cartCount}
               </span>
-            )}
-          </Link>
+            </Link>
+          )}
           <button
             className="p-1.5 text-bloom-gray-dark"
             onClick={() => setOpen(!open)}
@@ -114,7 +118,7 @@ export default function Navbar() {
       </nav>
 
       {open && (
-        <div className="md:hidden bg-bloom-cream-light border-t border-bloom-violet-light/20 px-6 py-5 flex flex-col gap-4">
+        <div className="md:hidden bg-bloom-cream-light/95 backdrop-blur-md border-t border-bloom-violet-light/20 px-6 py-5 flex flex-col gap-4">
           {mainLinks.map(({ href, label }) => (
             <Link key={href} href={href} onClick={() => setOpen(false)}
               className="font-body text-sm py-2 text-bloom-gray-dark border-b border-bloom-violet-light/20 last:border-0">
@@ -127,17 +131,17 @@ export default function Navbar() {
               <User size={15}/> {t('login')}
             </Link>
             <Link href="/inscription" onClick={() => setOpen(false)}
-              className="font-body text-sm border border-bloom-violet-dark text-bloom-violet-dark rounded-full px-5 py-2 text-center font-semibold">
+              className="font-body text-sm bg-bloom-violet-light text-bloom-violet-dark rounded-full px-5 py-2 text-center font-semibold">
               Inscription
             </Link>
             <Link href="/jeu" onClick={() => setOpen(false)}
-              className="font-body text-sm bg-bloom-violet-dark text-white rounded-full px-5 py-2 text-center font-semibold">
+              className="font-body text-sm bg-bloom-green text-white rounded-full px-5 py-2 text-center font-semibold">
               {t('play')}
             </Link>
           </div>
           <LocaleSwitcher />
         </div>
       )}
-    </header>
+    </motion.header>
   )
 }

@@ -1,36 +1,38 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
+import { blurUp, blurIn, staggerParent, viewportOnce } from '@/lib/motion'
 
 const features = [
-  { img: '/icon-plant.png',  bg: 'bg-bloom-green',         label: 'Coopération', desc: 'Jouez ensemble pour faire éclore les cinq fleurs légendaires.' },
-  { img: '/icon-eye.png',    bg: 'bg-bloom-violet-light',  label: 'Doute',       desc: 'Méfiez-vous des Ronces qui se cachent parmi vous.' },
-  { img: '/icon-flower.png', bg: 'bg-bloom-violet-light',  label: 'Poésie',      desc: 'Un univers poétique et mystérieux pour tous les âges.' },
+  { icon: '/icons/plant-green.svg',   label: 'Coopération', desc: 'Jouez ensemble pour faire éclore les cinq fleurs légendaires.' },
+  { icon: '/icons/eye-purple.svg',    label: 'Doute',       desc: 'Méfiez-vous des Ronces qui se cachent parmi vous.' },
+  { icon: '/icons/flower-purple.svg', label: 'Poésie',      desc: 'Un univers poétique et mystérieux pour tous les âges.' },
 ]
 
 export default function UniverseSection() {
   const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const sunRotate = useTransform(scrollYProgress, [0, 1], ['-8deg', '8deg'])
-  const sunScale  = useTransform(scrollYProgress, [0, 0.5, 1], [0.88, 1, 0.92])
+  const sunRotate = useTransform(scrollYProgress, [0, 1], reduce ? ['0deg', '0deg'] : ['-10deg', '10deg'])
+  const sunY = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['8%', '-8%'])
 
   return (
-    <section id="univers" ref={ref} className="py-20 sm:py-28 px-6 bg-white overflow-hidden">
+    <section id="univers" ref={ref} className="py-20 sm:py-28 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
 
         <motion.div
           className="flex items-center justify-center order-2 lg:order-1"
-          style={{ rotate: sunRotate, scale: sunScale }}
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          style={{ rotate: sunRotate, y: sunY }}
+          variants={blurIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
         >
           <div className="w-52 h-52 sm:w-64 sm:h-64 lg:w-80 lg:h-80">
             <Image
-              src="/soleil.webp"
+              src="/cards/soleil.webp"
               alt="Soleil illustré"
               width={320}
               height={320}
@@ -39,63 +41,42 @@ export default function UniverseSection() {
           </div>
         </motion.div>
 
-        <div className="order-1 lg:order-2 flex flex-col gap-5">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="font-title text-3xl sm:text-4xl text-bloom-black">Bloom, le jardin</h2>
-          </motion.div>
+        <motion.div
+          className="order-1 lg:order-2 flex flex-col gap-5"
+          variants={staggerParent}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
+          <motion.h2 variants={blurUp} className="font-title text-3xl sm:text-4xl text-bloom-black">
+            Bloom, le jardin
+          </motion.h2>
 
-          <motion.p
-            className="font-body text-bloom-gray-dark/65 text-base leading-relaxed"
-            initial={{ opacity: 0, y: 22 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
+          <motion.p variants={blurUp} className="font-body text-bloom-gray-dark/65 text-base leading-relaxed">
             Chaque année, les Jardiniers coopèrent pour faire éclore cinq fleurs légendaires.
           </motion.p>
 
-          <motion.blockquote
-            className="border-l-4 border-bloom-rose pl-5 py-1"
-            initial={{ opacity: 0, x: -24 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.65, delay: 0.18 }}
-          >
+          <motion.blockquote variants={blurUp} className="border-l-4 border-bloom-rose pl-5 py-1">
             <p className="font-accent text-bloom-violet-dark text-xl sm:text-2xl italic leading-snug">
               «&nbsp;Coopérez, fleurissez, mais gardez l&apos;œil ouvert. Tout peut fleurir. Même le doute.&nbsp;»
             </p>
           </motion.blockquote>
 
-          <motion.p
-            className="font-body text-bloom-gray-dark/65 text-sm leading-relaxed"
-            initial={{ opacity: 0, y: 18 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.26 }}
-          >
+          <motion.p variants={blurUp} className="font-body text-bloom-gray-dark/65 text-sm leading-relaxed">
             Un jeu de coopération et de trahison où chaque partie révèle une nouvelle dynamique de groupe.
             Faites confiance à vos coéquipiers&nbsp;— mais méfiez-vous des Ronces.
           </motion.p>
 
           <div className="grid grid-cols-3 gap-4 pt-2">
-            {features.map(({ img, bg, label, desc }, i) => (
-              <motion.div
-                key={label}
-                className="flex flex-col gap-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.34 + i * 0.1 }}
-              >
-                <div className={`w-[54px] h-[54px] rounded-2xl ${bg} flex items-center justify-center`}>
-                  <img src={img} alt={label} className="w-7 h-7 object-contain" />
-                </div>
+            {features.map(({ icon, label, desc }) => (
+              <motion.div key={label} variants={blurUp} className="flex flex-col gap-2">
+                <img src={icon} alt={label} className="w-[54px] h-[54px]" />
                 <p className="font-title text-sm text-bloom-black">{label}</p>
                 <p className="font-body text-xs text-bloom-gray-dark/55 leading-relaxed">{desc}</p>
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

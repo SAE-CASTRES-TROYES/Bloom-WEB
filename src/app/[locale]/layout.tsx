@@ -10,20 +10,14 @@ import Footer from '@/components/layout/Footer'
 import '../globals.css'
 
 const alice = localFont({
-  src: '../../../public/alice-regular.ttf',
+  src: '../../../public/fonts/alice-regular.ttf',
   variable: '--font-alice',
   display: 'swap',
 })
 
 const karla = localFont({
-  src: '../../../public/karla-variable.ttf',
+  src: '../../../public/fonts/karla-variable.ttf',
   variable: '--font-karla',
-  display: 'swap',
-})
-
-const dancingScript = localFont({
-  src: '../../../public/dancing-script-regular.ttf',
-  variable: '--font-dancing-script',
   display: 'swap',
 })
 
@@ -50,9 +44,13 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html
       lang={locale}
-      className={`${alice.variable} ${karla.variable} ${dancingScript.variable} h-full antialiased`}
+      className={`${alice.variable} ${karla.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-body bg-bloom-cream-light text-bloom-gray-dark">
+        <div
+          aria-hidden
+          className="fixed inset-0 -z-10 bg-[url('/textures/aquarelle.png')] bg-cover bg-center bg-no-repeat mix-blend-multiply"
+        />
         <NextIntlClientProvider messages={messages}>
           <Navbar />
           {children}

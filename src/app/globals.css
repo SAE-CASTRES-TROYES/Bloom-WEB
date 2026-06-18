@@ -28,13 +28,13 @@
   --color-bloom-blue-pale:     #DAEDF5;
 
   /* ── Typographie Bloom ──
-     Alice      → font-title  : titres, nombres, noms propres
-     Karla      → font-body   : corps de texte, boutons, labels, navigation
-     Dancing Script → font-accent : taglines, citations, textes décoratifs
+     Alice → font-title  : titres, nombres, noms propres
+     Karla → font-body   : corps de texte, boutons, labels, navigation
+     Alice → font-accent : taglines, citations, textes décoratifs
   */
-  --font-title:  var(--font-alice),          serif;
-  --font-body:   var(--font-karla),          sans-serif;
-  --font-accent: var(--font-dancing-script), cursive;
+  --font-title:  var(--font-alice), serif;
+  --font-body:   var(--font-karla), sans-serif;
+  --font-accent: var(--font-alice), serif;
 
   /* shadcn radius */
   --radius-sm:  calc(var(--radius) * 0.6);
@@ -132,4 +132,12 @@ body {
   .font-title  { font-family: var(--font-title); }
   .font-body   { font-family: var(--font-body); }
   .font-accent { font-family: var(--font-accent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

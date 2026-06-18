@@ -16,7 +16,7 @@ export default async function PaymentSuccessPage({ searchParams }: Props) {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-8 px-4">
-      <Image src="/logo.svg" alt="Bloom" width={80} height={32} />
+      <Image src="/brand/logo.svg" alt="Bloom" width={80} height={32} />
 
       <div className="bg-bloom-green-light rounded-3xl p-10 text-center max-w-md flex flex-col gap-5 border border-bloom-green/20">
         <div className="text-5xl">🌸</div>

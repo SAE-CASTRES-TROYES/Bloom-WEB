@@ -15,7 +15,7 @@ export default async function NewsSection() {
   const safeArticles = newsError ? [] : (articles ?? [])
 
   return (
-    <section id="actualites" className="py-24 px-4 bg-bloom-cream">
+    <section id="actualites" className="py-24 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
         <div className="flex items-end justify-between">
           <div className="flex flex-col gap-2">

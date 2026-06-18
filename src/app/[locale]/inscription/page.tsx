@@ -58,7 +58,7 @@ export default function InscriptionPage() {
     <main className="min-h-screen flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md flex flex-col gap-8">
         <div className="flex flex-col items-center gap-4">
-          <Image src="/logo.svg" alt="Bloom" width={80} height={32} />
+          <Image src="/brand/logo.svg" alt="Bloom" width={80} height={32} />
           <h1 className="font-title text-3xl text-bloom-violet-dark">{t('register_title')}</h1>
         </div>
 

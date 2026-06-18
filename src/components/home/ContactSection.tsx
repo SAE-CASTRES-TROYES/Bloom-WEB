@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import { useTranslations } from 'next-intl'
-import { Link } from '@/i18n/navigation'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Mail, Store, MapPin, Flower2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { blurUp, staggerParent, viewportOnce } from '@/lib/motion'
 
 const schema = z.object({
   prenom: z.string().min(2),
@@ -18,14 +18,12 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 const contactLinks = [
-  { icon: '✉️', text: 'bonjour@bloom-jeu.fr', sub: 'Réponse sous 4h', href: 'mailto:bonjour@bloom-jeu.fr' },
-  { icon: '🏪', text: 'Vous êtes revendeur ?', sub: 'Accédez à l\'Espace pro B2B', href: '/boutique#b2b' },
-  { icon: '📍', text: 'Trouver une boutique', sub: 'Carte des revendeurs', href: '/trouver-une-boutique' },
+  { Icon: Mail,   text: 'bonjour@bloom-jeu.fr', sub: 'Réponse sous 4h', href: 'mailto:bonjour@bloom-jeu.fr' },
+  { Icon: Store,  text: 'Vous êtes revendeur ?', sub: 'Accédez à l\'Espace pro B2B', href: '/boutique#b2b' },
+  { Icon: MapPin, text: 'Trouver une boutique', sub: 'Carte des revendeurs', href: '/trouver-une-boutique' },
 ]
 
 export default function ContactSection() {
-  const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } =
@@ -47,15 +45,16 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" ref={ref} className="py-20 sm:py-28 px-6 bg-bloom-gray-dark">
+    <section id="contact" className="py-20 sm:py-28 px-6 bg-bloom-gray-dark">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
         <motion.div
           className="flex flex-col gap-8"
-          initial={{ opacity: 0, x: -30 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.65 }}
+          variants={staggerParent}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
         >
-          <div className="flex flex-col gap-2">
+          <motion.div variants={blurUp} className="flex flex-col gap-2">
             <h2 className="font-title text-4xl sm:text-5xl text-white leading-tight">
               Une question ?<br />
               <span className="text-bloom-gold">Écrivez-nous.</span>
@@ -63,20 +62,18 @@ export default function ContactSection() {
             <p className="font-body text-bloom-violet-pale/70 text-base leading-relaxed mt-3 max-w-sm">
               Une question sur Bloom, une commande ou une collaboration ? Nous vous répondons rapidement.
             </p>
-          </div>
+          </motion.div>
 
           <div className="flex flex-col gap-4">
-            {contactLinks.map(({ icon, text, sub, href }, i) => (
+            {contactLinks.map(({ Icon, text, sub, href }) => (
               <motion.a
                 key={text}
                 href={href}
                 className="flex items-center gap-4 group"
-                initial={{ opacity: 0, x: -20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+                variants={blurUp}
               >
-                <div className="w-10 h-10 rounded-xl bg-bloom-black/30 border border-bloom-violet-dark/40 flex items-center justify-center text-lg shrink-0 group-hover:border-bloom-gold/50 transition-colors">
-                  {icon}
+                <div className="w-10 h-10 rounded-xl bg-bloom-black/30 border border-bloom-violet-dark/40 flex items-center justify-center text-bloom-violet-pale shrink-0 group-hover:border-bloom-gold/50 group-hover:text-bloom-gold transition-colors">
+                  <Icon size={18} />
                 </div>
                 <div>
                   <p className="font-body text-sm text-white font-medium group-hover:text-bloom-gold transition-colors">{text}</p>
@@ -88,13 +85,14 @@ export default function ContactSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65, delay: 0.15 }}
+          initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={viewportOnce}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           {status === 'success' ? (
-            <div className="bg-white rounded-2xl p-8 text-center flex flex-col gap-4">
-              <p className="text-4xl">🌸</p>
+            <div className="bg-white rounded-2xl p-8 text-center flex flex-col items-center gap-4">
+              <Flower2 size={44} className="text-bloom-rose" />
               <h3 className="font-title text-xl text-bloom-black">Message envoyé !</h3>
               <p className="font-body text-sm text-bloom-gray-dark/70">Nous vous répondrons sous 4h.</p>
             </div>
@@ -172,7 +170,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-bloom-black text-white rounded-2xl py-3 font-semibold text-sm hover:bg-bloom-gray-dark transition-colors disabled:opacity-50 mt-1"
+                className="w-full bg-bloom-violet-dark text-white rounded-full py-3 font-semibold text-sm hover:bg-bloom-violet-medium transition-colors disabled:opacity-50 mt-1 active:scale-[0.98]"
               >
                 {isSubmitting ? 'Envoi...' : 'Envoyer'}
               </button>
