@@ -43,7 +43,6 @@ export async function POST(req: Request) {
     })),
     success_url: `${origin}${localePrefix}/paiement/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}${localePrefix}/panier`,
-    // TEST MODE — aucun paiement réel
     metadata: { test_mode: 'true' },
   })
 

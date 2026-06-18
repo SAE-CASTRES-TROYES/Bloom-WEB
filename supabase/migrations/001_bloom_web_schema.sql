@@ -25,14 +25,32 @@ create policy "Lecture publique des profils"
 create policy "Modification du propre profil"
   on public.profiles for all using (auth.uid() = id);
 
+-- ── profiles: colonnes B2B ───────────────────────────────────
+alter table public.profiles add column if not exists company text;
+alter table public.profiles add column if not exists siret   text;
+alter table public.profiles add column if not exists wins    integer not null default 0;
+
 -- Trigger: créer un profil à la création du compte
+-- Respecte le rôle choisi à l'inscription (player ou retailer)
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer as $$
+declare
+  requested_role text;
 begin
-  insert into public.profiles (id, pseudo)
+  -- Le rôle vient des metadata envoyées lors du signUp
+  requested_role := coalesce(new.raw_user_meta_data->>'role', 'player');
+  -- Seuls 'player' et 'retailer' sont acceptés à l'inscription
+  if requested_role not in ('player', 'retailer') then
+    requested_role := 'player';
+  end if;
+
+  insert into public.profiles (id, pseudo, role, company, siret)
   values (
     new.id,
-    coalesce(new.raw_user_meta_data->>'pseudo', split_part(new.email, '@', 1))
+    coalesce(new.raw_user_meta_data->>'pseudo', split_part(new.email, '@', 1)),
+    requested_role,
+    new.raw_user_meta_data->>'company',
+    new.raw_user_meta_data->>'siret'
   );
   return new;
 end;

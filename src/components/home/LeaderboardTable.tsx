@@ -33,7 +33,6 @@ export default function LeaderboardTable({ entries }: { entries: LeaderboardEntr
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Table header */}
       <div className="grid grid-cols-[2.5rem_1fr_5rem_5rem] gap-2 px-4 py-3 bg-bloom-green text-white text-xs font-semibold uppercase tracking-wide">
         <span>#</span>
         <span>{t('player')}</span>

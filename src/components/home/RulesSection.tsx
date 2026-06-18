@@ -3,7 +3,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-/* ─── Cartes ressource pour la déco ────── */
 const RESOURCE_MINI = [
   { label: 'Épine',   color: '#CF6B88', emoji: '🌵' },
   { label: 'Bouclier', color: '#4F4473', emoji: '🛡️' },
@@ -48,7 +47,6 @@ export default function RulesSection() {
     <section id="regles" ref={ref} className="py-20 sm:py-28 px-6 bg-bloom-cream-light overflow-hidden">
       <div className="max-w-6xl mx-auto flex flex-col gap-12">
 
-        {/* Titre centré */}
         <motion.div
           className="text-center flex flex-col gap-3"
           initial={{ opacity: 0, y: 28 }}
@@ -61,7 +59,6 @@ export default function RulesSection() {
           </p>
         </motion.div>
 
-        {/* Cartes camps */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {camps.map(({ key, icon, title, badge, badgeStyle, bg, iconBg, desc }, i) => (
             <motion.div
@@ -85,7 +82,6 @@ export default function RulesSection() {
           ))}
         </div>
 
-        {/* 3 étapes */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-6 border-t border-bloom-violet-light/30">
           {steps.map(({ num, title, desc }, i) => (
             <motion.div
@@ -102,7 +98,6 @@ export default function RulesSection() {
           ))}
         </div>
 
-        {/* Mini cartes ressource */}
         <motion.div
           className="flex flex-wrap justify-center gap-3 pt-2"
           initial={{ opacity: 0, y: 16 }}
@@ -110,20 +105,23 @@ export default function RulesSection() {
           transition={{ duration: 0.5, delay: 0.6 }}
         >
           {[
-            { label: 'Eau',    color: '#95C6D8', emoji: '💧' },
-            { label: 'Soleil', color: '#E9C75F', emoji: '☀️' },
-            { label: 'Terre',  color: '#DBE4D4', emoji: '🌱' },
-            { label: 'Vent',   color: '#C1ECFD', emoji: '🌬️' },
-            { label: 'Pollen', color: '#CABFE3', emoji: '🌸' },
-            ...RESOURCE_MINI,
-          ].map(({ label, color, emoji }) => (
+            { src: '/eau.webp',    label: 'Eau' },
+            { src: '/soleil.webp', label: 'Soleil' },
+            { src: '/terre.webp',  label: 'Terre' },
+            { src: '/vent.webp',   label: 'Vent' },
+            { src: '/tulipe.webp', label: 'Tulipe' },
+            { src: '/lys.webp',    label: 'Lys' },
+            { src: '/mimosa.webp', label: 'Mimosa' },
+            { src: '/epine.webp',  label: 'Épine' },
+          ].map(({ src, label }) => (
             <div
               key={label}
-              className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-body font-semibold border"
-              style={{ backgroundColor: color + '22', borderColor: color + '55', color: '#3D2E46' }}
+              className="flex flex-col items-center gap-1 w-12"
             >
-              <span>{emoji}</span>
-              {label}
+              <div className="w-10 h-10 rounded-lg overflow-hidden border border-bloom-violet-light/30 shadow-sm">
+                <img src={src} alt={label} className="w-full h-full object-cover" />
+              </div>
+              <span className="font-body text-[10px] text-bloom-gray-dark/60">{label}</span>
             </div>
           ))}
         </motion.div>

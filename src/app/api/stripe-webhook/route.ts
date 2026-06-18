@@ -25,7 +25,6 @@ export async function POST(req: Request) {
     const session = event.data.object as Stripe.Checkout.Session
     const supabase = await createClient()
 
-    // Sauvegarder la commande en base
     await supabase.from('orders').insert({
       items: session.line_items ?? [],
       total: (session.amount_total ?? 0) / 100,
@@ -36,5 +35,4 @@ export async function POST(req: Request) {
   return NextResponse.json({ received: true })
 }
 
-// Désactiver le body parsing pour les webhooks Stripe
 export const config = { api: { bodyParser: false } }

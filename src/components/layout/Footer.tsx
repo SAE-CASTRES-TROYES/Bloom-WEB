@@ -47,9 +47,7 @@ export default function Footer() {
   return (
     <footer className="bg-bloom-black text-bloom-cream-light">
       <div className="max-w-6xl mx-auto px-6 pt-14 pb-8">
-        {/* Main grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-          {/* Brand col */}
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-2">
               <Image src="/logo.svg" alt="Bloom" width={36} height={36} className="brightness-0 invert opacity-90" />
@@ -68,7 +66,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Link columns */}
           {columns.map(({ title, links }) => (
             <div key={title} className="flex flex-col gap-4">
               <p className="font-body text-xs font-semibold tracking-widest uppercase text-bloom-violet-pale/60">
@@ -90,7 +87,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom bar */}
         <div className="border-t border-bloom-violet-dark/30 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="font-body text-xs text-bloom-violet-pale/40">
             © {year} Projet Bloom. Le Jardin des Merveilles. Tous droits réservés.

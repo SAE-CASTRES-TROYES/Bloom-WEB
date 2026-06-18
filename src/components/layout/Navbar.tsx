@@ -34,7 +34,6 @@ export default function Navbar() {
     }`}>
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
 
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-2 shrink-0 group">
           <Image
             src="/logo.svg" alt="Bloom"
@@ -47,7 +46,6 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Links centraux */}
         <ul className="hidden md:flex items-center gap-7">
           {mainLinks.map(({ href, label }) => (
             <li key={href}>
@@ -68,11 +66,9 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Droite */}
         <div className="hidden md:flex items-center gap-2.5">
           <LocaleSwitcher />
 
-          {/* Panier */}
           <Link href="/panier" className="relative p-2 text-bloom-gray-dark/70 hover:text-bloom-violet-dark transition-colors">
             <ShoppingCart size={18} />
             {cartCount > 0 && (
@@ -98,7 +94,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile toggle */}
         <div className="md:hidden flex items-center gap-2">
           <Link href="/panier" className="relative p-1.5 text-bloom-gray-dark/70">
             <ShoppingCart size={18} />
@@ -118,7 +113,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile dropdown */}
       {open && (
         <div className="md:hidden bg-bloom-cream-light border-t border-bloom-violet-light/20 px-6 py-5 flex flex-col gap-4">
           {mainLinks.map(({ href, label }) => (

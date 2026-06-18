@@ -17,13 +17,11 @@ export default async function ActualitesPage() {
   return (
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-10">
-        {/* Header */}
         <div className="flex flex-col gap-2">
           <span className="font-accent text-bloom-rose text-lg italic">Blog &amp; Agenda</span>
           <h1 className="font-title text-5xl text-bloom-violet-dark">{t('title')}</h1>
         </div>
 
-        {/* Category filters (client-side via URL) */}
         <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
             <span
@@ -35,7 +33,6 @@ export default async function ActualitesPage() {
           ))}
         </div>
 
-        {/* Articles grid */}
         {articles.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map((article) => (

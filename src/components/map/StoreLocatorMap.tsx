@@ -4,7 +4,6 @@ import { useState, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import { useTranslations } from 'next-intl'
 
-// Leaflet must be client-only (no SSR)
 const MapEmbed = dynamic(() => import('./MapEmbed'), { ssr: false, loading: () => (
   <div className="w-full h-[500px] rounded-2xl bg-bloom-violet-pale flex items-center justify-center">
     <div className="w-8 h-8 rounded-full border-2 border-bloom-violet-light border-t-bloom-violet-dark animate-spin" />
@@ -40,7 +39,6 @@ export default function StoreLocatorMap({ retailers }: { retailers: Retailer[] }
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Filters */}
       <div className="flex flex-wrap gap-3">
         <input
           value={search}
@@ -67,10 +65,8 @@ export default function StoreLocatorMap({ retailers }: { retailers: Retailer[] }
         </span>
       </div>
 
-      {/* Map */}
       <MapEmbed retailers={filtered} />
 
-      {/* List */}
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
           {filtered.map((r) => (

@@ -13,7 +13,6 @@ export default async function ComptePage() {
   const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single()
   const [{ data: orders }, { data: gameHistory }] = await Promise.all([
     supabase.from('orders').select('id, total, status, created_at, items').eq('user_id', user.id).order('created_at', { ascending: false }).limit(5),
-    // Liaison WEB↔JEU : récupère les parties jouées via la table players du JEU (même Supabase)
     supabase.from('players').select('id, pseudo, role, score, game_id, created_at').eq('pseudo', (profile as { pseudo?: string } | null)?.pseudo ?? '').limit(10),
   ])
 
@@ -26,7 +25,6 @@ export default async function ComptePage() {
   return (
     <main className="min-h-screen py-16 px-4">
       <div className="max-w-3xl mx-auto flex flex-col gap-10">
-        {/* Header */}
         <div className="flex items-center gap-4">
           <div className="w-16 h-16 rounded-2xl bg-bloom-violet-pale flex items-center justify-center text-3xl overflow-hidden">
             {profile?.avatar_url
@@ -48,7 +46,6 @@ export default async function ComptePage() {
           </div>
         </div>
 
-        {/* Stats cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
             { value: totalScore.toLocaleString('fr-FR'), label: t('score'), icon: '🏆' },
@@ -64,13 +61,10 @@ export default async function ComptePage() {
           ))}
         </div>
 
-        {/* Account form */}
         <AccountForm user={user} profile={profile} />
 
-        {/* Game history */}
         <GameHistory entries={gameHistory ?? []} />
 
-        {/* Orders history */}
         {orders && orders.length > 0 && (
           <section className="flex flex-col gap-4">
             <h2 className="font-title text-xl text-bloom-violet-dark">Mes commandes</h2>

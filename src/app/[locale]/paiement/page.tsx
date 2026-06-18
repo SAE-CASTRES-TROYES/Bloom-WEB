@@ -52,7 +52,6 @@ export default function PaiementPage() {
           </p>
         </div>
 
-        {/* Order summary */}
         <div className="bg-white rounded-2xl border border-bloom-violet-light/20 shadow-sm overflow-hidden">
           <div className="px-5 py-3 bg-bloom-violet-pale border-b border-bloom-violet-light/20">
             <p className="font-title text-sm text-bloom-violet-dark">Récapitulatif</p>
@@ -82,7 +81,6 @@ export default function PaiementPage() {
           </div>
         </div>
 
-        {/* Stripe test card hint */}
         <div className="bg-bloom-blue-pale rounded-2xl p-4 text-sm font-body text-bloom-gray-dark border border-bloom-blue/20">
           <p className="font-semibold mb-1">💳 Carte de test Stripe</p>
           <p>Numéro : <code className="bg-white px-1 rounded">4242 4242 4242 4242</code></p>

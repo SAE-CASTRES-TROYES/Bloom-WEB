@@ -6,7 +6,6 @@ import type { Retailer } from './StoreLocatorMap'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 
-// Fix Leaflet default icon in webpack/Next.js
 const icon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -19,7 +18,7 @@ const icon = L.icon({
 export default function MapEmbed({ retailers }: { retailers: Retailer[] }) {
   const center: [number, number] = retailers.length > 0
     ? [retailers[0].lat, retailers[0].lng]
-    : [46.603354, 1.888334] // France center
+    : [46.603354, 1.888334]
 
   return (
     <MapContainer

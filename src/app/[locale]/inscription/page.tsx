@@ -15,7 +15,6 @@ const schema = z.object({
   password: z.string().min(8, 'Minimum 8 caractères'),
   confirmPassword: z.string(),
   role: z.enum(['player', 'retailer']),
-  // Champs spécifiques revendeur
   company: z.string().optional(),
   siret: z.string().optional(),
   gdpr: z.literal(true, { message: 'Vous devez accepter les conditions.' }),
@@ -63,7 +62,6 @@ export default function InscriptionPage() {
           <h1 className="font-title text-3xl text-bloom-violet-dark">{t('register_title')}</h1>
         </div>
 
-        {/* Role selector */}
         <div className="grid grid-cols-2 gap-3">
           {[
             { value: 'player', emoji: '🌿', title: 'Joueur', desc: 'Je veux jouer à Bloom' },
@@ -101,7 +99,6 @@ export default function InscriptionPage() {
             {errors.email && <p className="text-xs text-bloom-rose">{errors.email.message}</p>}
           </div>
 
-          {/* Champs B2B conditionnels */}
           {selectedRole === 'retailer' && (
             <>
               <div className="flex flex-col gap-1.5">

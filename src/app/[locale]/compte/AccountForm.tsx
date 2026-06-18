@@ -57,7 +57,6 @@ export default function AccountForm({ user, profile }: { user: User; profile: Pr
       >
         <h2 className="font-title text-xl text-bloom-violet-dark">{t('identity')}</h2>
 
-        {/* Email (readonly) */}
         <div className="flex flex-col gap-1.5">
           <label className="font-body text-sm font-medium text-bloom-gray-dark">{t('email')}</label>
           <input

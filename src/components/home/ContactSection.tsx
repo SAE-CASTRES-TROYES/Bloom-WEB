@@ -49,7 +49,6 @@ export default function ContactSection() {
   return (
     <section id="contact" ref={ref} className="py-20 sm:py-28 px-6 bg-bloom-gray-dark">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        {/* Left */}
         <motion.div
           className="flex flex-col gap-8"
           initial={{ opacity: 0, x: -30 }}
@@ -88,7 +87,6 @@ export default function ContactSection() {
           </div>
         </motion.div>
 
-        {/* Right: form card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -105,7 +103,6 @@ export default function ContactSection() {
               onSubmit={handleSubmit(onSubmit)}
               className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-4"
             >
-              {/* Prénom / Nom row */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
                   <label className="font-body text-xs font-medium text-bloom-gray-dark">

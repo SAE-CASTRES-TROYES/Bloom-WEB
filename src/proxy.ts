@@ -10,7 +10,6 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip Next.js internals, static files, and /jeu (handled by rewrites)
     '/((?!_next|_vercel|jeu|.*\\..*).*)',
   ],
 }
