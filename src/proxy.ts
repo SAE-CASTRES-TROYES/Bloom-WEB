@@ -10,6 +10,7 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next|_vercel|jeu|.*\\..*).*)',
+    // Exclut api (routes serveur), _next, _vercel, jeu (proxy) et les fichiers (avec extension)
+    '/((?!api|_next|_vercel|jeu|.*\\..*).*)',
   ],
 }
