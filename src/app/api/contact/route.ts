@@ -6,6 +6,7 @@ const schema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   message: z.string().min(10),
+  company_website: z.string().optional(), // honeypot
 })
 
 export async function POST(req: Request) {
@@ -13,7 +14,12 @@ export async function POST(req: Request) {
   const parsed = schema.safeParse(body)
   if (!parsed.success) return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
 
-  const { name, email, message } = parsed.data
+  const { name, email, message, company_website } = parsed.data
+
+  // Honeypot rempli → bot. On répond OK sans envoyer (ne pas renseigner le bot).
+  if (company_website && company_website.trim() !== '') {
+    return NextResponse.json({ ok: true })
+  }
 
   if (!process.env.RESEND_API_KEY) {
     console.log('[CONTACT DEV]', { name, email, message })

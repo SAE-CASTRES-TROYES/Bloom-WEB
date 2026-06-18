@@ -23,7 +23,17 @@ export default function AccountForm({ user, profile }: { user: User; profile: Pr
   const router = useRouter()
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [resetState, setResetState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const supabase = createClient()
+
+  async function handlePasswordReset() {
+    if (!user.email) return
+    setResetState('sending')
+    const { error } = await supabase.auth.resetPasswordForEmail(user.email, {
+      redirectTo: `${window.location.origin}/compte/reset-password`,
+    })
+    setResetState(error ? 'error' : 'sent')
+  }
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<FormData>({
@@ -86,6 +96,34 @@ export default function AccountForm({ user, profile }: { user: User; profile: Pr
             <option value="en">English</option>
             <option value="es">Español</option>
           </select>
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <label className="font-body text-sm font-medium text-bloom-gray-dark">Mot de passe</label>
+          <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+            <input
+              value="••••••••••"
+              type="password"
+              disabled
+              readOnly
+              aria-label="Mot de passe (masqué)"
+              className="border border-bloom-violet-light/50 rounded-xl px-4 py-2.5 text-sm bg-bloom-cream/50 text-bloom-gray-dark/60 flex-1"
+            />
+            <button
+              type="button"
+              onClick={handlePasswordReset}
+              disabled={resetState === 'sending'}
+              className={btn('outline', 'sm')}
+            >
+              {resetState === 'sending' ? 'Envoi...' : 'Réinitialiser'}
+            </button>
+          </div>
+          {resetState === 'sent' && (
+            <p className="text-xs text-bloom-green font-semibold">E-mail de réinitialisation envoyé à {user.email}.</p>
+          )}
+          {resetState === 'error' && (
+            <p className="text-xs text-bloom-rose">Échec de l&apos;envoi, réessayez.</p>
+          )}
         </div>
 
         {error && <p className="text-xs text-bloom-rose">{error}</p>}

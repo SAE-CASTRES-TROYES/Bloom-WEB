@@ -14,7 +14,7 @@ export default async function BoutiquePage() {
   const [{ data: products, error: productsError }, { data: profile }] = await Promise.all([
     supabase
       .from('products')
-      .select('id, slug, name, description, price_public, stock, images')
+      .select('id, slug, name, description, price_public, price_pro, stock, images')
       .order('created_at', { ascending: false }),
     user
       ? supabase.from('profiles').select('role').eq('id', user.id).single()
@@ -34,7 +34,7 @@ export default async function BoutiquePage() {
         </div>
 
         {safeProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div id="catalogue" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 scroll-mt-24">
             {safeProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -49,7 +49,7 @@ export default async function BoutiquePage() {
         )}
 
         {isRetailer ? (
-          <B2BSection />
+          <B2BSection products={safeProducts} />
         ) : (
           <section className="border-t border-bloom-violet-light pt-10 flex flex-col gap-6">
             <div className="flex flex-col gap-2">
@@ -75,6 +75,10 @@ export default async function BoutiquePage() {
               </div>
             ) : (
               <div className="flex gap-3 flex-wrap">
+                {/* Précommande : non-revendeur → création d'un compte revendeur */}
+                <Link href="/inscription" className={btn('primary', 'md')}>
+                  Précommander
+                </Link>
                 <Link href="/inscription" className={btn('violet', 'md')}>
                   S&apos;inscrire comme revendeur
                 </Link>

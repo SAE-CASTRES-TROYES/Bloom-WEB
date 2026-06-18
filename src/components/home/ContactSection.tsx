@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Store, MapPin, Flower2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
@@ -26,6 +26,7 @@ const contactLinks = [
 
 export default function ContactSection() {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const honeypotRef = useRef<HTMLInputElement>(null)
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } =
     useForm<FormData>({ resolver: zodResolver(schema) })
@@ -35,7 +36,12 @@ export default function ContactSection() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: `${data.prenom} ${data.nom}`, email: data.email, message: data.message }),
+        body: JSON.stringify({
+          name: `${data.prenom} ${data.nom}`,
+          email: data.email,
+          message: data.message,
+          company_website: honeypotRef.current?.value ?? '',
+        }),
       })
       if (!res.ok) throw new Error()
       setStatus('success')
@@ -102,6 +108,16 @@ export default function ContactSection() {
               onSubmit={handleSubmit(onSubmit)}
               className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-4"
             >
+              {/* honeypot anti-spam : invisible pour les humains */}
+              <input
+                ref={honeypotRef}
+                type="text"
+                name="company_website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
                   <label className="font-body text-xs font-medium text-bloom-gray-dark">
