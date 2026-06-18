@@ -2,9 +2,7 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { z } from 'zod'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-05-27.dahlia',
-})
+export const dynamic = 'force-dynamic'
 
 const schema = z.object({
   items: z.array(z.object({
@@ -25,6 +23,10 @@ export async function POST(req: Request) {
   const { items, locale } = parsed.data
   const origin = req.headers.get('origin') ?? 'http://localhost:3000'
   const localePrefix = locale === 'fr' ? '' : `/${locale}`
+
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2026-05-27.dahlia',
+  })
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
