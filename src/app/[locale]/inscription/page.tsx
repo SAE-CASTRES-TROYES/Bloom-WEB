@@ -18,7 +18,6 @@ const schema = z.object({
   confirmPassword: z.string(),
   role: z.enum(['player', 'retailer']),
   company: z.string().optional(),
-  siret: z.string().optional(),
   gdpr: z.literal(true, { message: 'Vous devez accepter les conditions.' }),
 }).refine((d) => d.password === d.confirmPassword, {
   message: 'Les mots de passe ne correspondent pas',
@@ -33,6 +32,7 @@ export default function InscriptionPage() {
   const searchParams = useSearchParams()
   const initialRole = searchParams.get('role') === 'retailer' ? 'retailer' : 'player'
   const [error, setError] = useState<string | null>(null)
+  const [emailSent, setEmailSent] = useState(false)
   const supabase = createClient()
 
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } =
@@ -42,7 +42,7 @@ export default function InscriptionPage() {
 
   async function onSubmit(data: FormData) {
     setError(null)
-    const { error } = await supabase.auth.signUp({
+    const { data: result, error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
       options: {
@@ -50,12 +50,38 @@ export default function InscriptionPage() {
           pseudo: data.pseudo,
           role: data.role,
           company: data.company,
-          siret: data.siret,
         },
       },
     })
-    if (error) { setError(error.message); return }
-    router.push('/compte')
+    if (error) {
+      // Messages plus clairs que ceux renvoyés bruts par Supabase
+      if (error.code === 'over_email_send_rate_limit') setError(t('err_rate_limit'))
+      else if (error.code === 'email_address_invalid') setError(t('err_email_invalid'))
+      else if (error.code === 'user_already_exists' || error.message.includes('already')) setError(t('err_exists'))
+      else setError(error.message)
+      return
+    }
+    // Session immédiate → connecté. Sinon, confirmation par e-mail requise.
+    if (result.session) router.push('/compte')
+    else setEmailSent(true)
+  }
+
+  if (emailSent) {
+    return (
+      <main className="min-h-screen flex items-center justify-center px-4 py-16">
+        <div className="w-full max-w-sm flex flex-col gap-6 text-center">
+          <h1 className="font-title text-3xl text-bloom-violet-dark">{t('register_title')}</h1>
+          <div className="bg-bloom-green-light rounded-2xl p-8 flex flex-col gap-3">
+            <p className="text-3xl">📬</p>
+            <p className="font-title text-lg text-bloom-black">{t('confirm_sent')}</p>
+            <p className="font-body text-sm text-bloom-gray-dark/70">{t('confirm_sent_body')}</p>
+          </div>
+          <Link href="/connexion" className="font-body text-sm text-bloom-rose font-semibold hover:underline">
+            {t('login_link')}
+          </Link>
+        </div>
+      </main>
+    )
   }
 
   return (
@@ -120,13 +146,9 @@ export default function InscriptionPage() {
                 <label className="font-body text-sm font-medium text-bloom-gray-dark">{t('company')}</label>
                 <input {...register('company')} placeholder="Ma Boutique de Jeux" className="border border-bloom-violet-light rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-bloom-violet-dark transition-colors" />
               </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="font-body text-sm font-medium text-bloom-gray-dark">{t('siret')}</label>
-                <input {...register('siret')} placeholder="123 456 789 00012" className="border border-bloom-violet-light rounded-xl px-4 py-2.5 text-sm font-mono focus:outline-none focus:border-bloom-violet-dark transition-colors" />
-              </div>
               <div className="bg-bloom-gold/10 border border-bloom-gold/30 rounded-xl p-3">
                 <p className="font-body text-xs text-bloom-gray-dark/70">
-                  ℹ️ Votre compte sera créé en accès revendeur. L&apos;accès complet à l&apos;espace B2B sera activé après validation par notre équipe.
+                  {t('retailer_note')}
                 </p>
               </div>
             </>
