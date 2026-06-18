@@ -9,89 +9,106 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --color-bloom-violet-dark: #4F4473;
+  --color-bloom-violet-dark:   #4F4473;
   --color-bloom-violet-medium: #8F77C7;
-  --color-bloom-violet-light: #CABFE3;
-  --color-bloom-violet-pale: #E4DDF2;
-  --color-bloom-gold: #E9C75F;
-  --color-bloom-gold-light: #F1DA8C;
-  --color-bloom-cream: #F8ECBF;
-  --color-bloom-cream-light: #FCF6E2;
-  --color-bloom-black: #2E2433;
-  --color-bloom-gray-dark: #3D2E46;
-  --color-bloom-rose: #CF6B88;
-  --color-bloom-rose-light: #F9DCE3;
-  --color-bloom-green: #6C855A;
-  --color-bloom-green-light: #DBE4D4;
-  --color-bloom-blue: #95C6D8;
-  --color-bloom-blue-light: #B0DBEB;
-  --color-bloom-blue-pale: #DAEDF5;
+  --color-bloom-violet-light:  #CABFE3;
+  --color-bloom-violet-pale:   #E4DDF2;
+  --color-bloom-gold:          #E9C75F;
+  --color-bloom-gold-light:    #F1DA8C;
+  --color-bloom-cream:         #F8ECBF;
+  --color-bloom-cream-light:   #FCF6E2;
+  --color-bloom-black:         #2E2433;
+  --color-bloom-gray-dark:     #3D2E46;
+  --color-bloom-rose:          #CF6B88;
+  --color-bloom-rose-light:    #F9DCE3;
+  --color-bloom-green:         #6C855A;
+  --color-bloom-green-light:   #DBE4D4;
+  --color-bloom-blue:          #95C6D8;
+  --color-bloom-blue-light:    #B0DBEB;
+  --color-bloom-blue-pale:     #DAEDF5;
 
-  /* Fonts */
-  --font-title: var(--font-alice), serif;
-  --font-body: var(--font-karla), sans-serif;
+  /* ── Typographie Bloom ──
+     Alice      → font-title  : titres, nombres, noms propres
+     Karla      → font-body   : corps de texte, boutons, labels, navigation
+     Dancing Script → font-accent : taglines, citations, textes décoratifs
+  */
+  --font-title:  var(--font-alice),          serif;
+  --font-body:   var(--font-karla),          sans-serif;
   --font-accent: var(--font-dancing-script), cursive;
 
   /* shadcn radius */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-sm:  calc(var(--radius) * 0.6);
+  --radius-md:  calc(var(--radius) * 0.8);
+  --radius-lg:  var(--radius);
+  --radius-xl:  calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
   /* shadcn semantic tokens */
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
+  --color-card:                var(--card);
+  --color-card-foreground:     var(--card-foreground);
+  --color-popover:             var(--popover);
+  --color-popover-foreground:  var(--popover-foreground);
+  --color-primary:             var(--primary);
+  --color-primary-foreground:  var(--primary-foreground);
+  --color-secondary:           var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  --color-muted:               var(--muted);
+  --color-muted-foreground:    var(--muted-foreground);
+  --color-accent:              var(--accent);
+  --color-accent-foreground:   var(--accent-foreground);
+  --color-destructive:         var(--destructive);
+  --color-border:              var(--border);
+  --color-input:               var(--input);
+  --color-ring:                var(--ring);
 }
 
 :root {
   --background: #FCF6E2;
   --foreground: #3D2E46;
 
-  --card: #FFFFFF;
-  --card-foreground: #3D2E46;
-  --popover: #FFFFFF;
-  --popover-foreground: #3D2E46;
-  --primary: #4F4473;
-  --primary-foreground: #FCF6E2;
-  --secondary: #E4DDF2;
-  --secondary-foreground: #4F4473;
-  --muted: #F8ECBF;
-  --muted-foreground: #8F77C7;
-  --accent: #E9C75F;
-  --accent-foreground: #2E2433;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: #CABFE3;
-  --input: #CABFE3;
-  --ring: #4F4473;
-  --radius: 0.75rem;
+  --card:                  #FFFFFF;
+  --card-foreground:       #3D2E46;
+  --popover:               #FFFFFF;
+  --popover-foreground:    #3D2E46;
+  --primary:               #4F4473;
+  --primary-foreground:    #FCF6E2;
+  --secondary:             #E4DDF2;
+  --secondary-foreground:  #4F4473;
+  --muted:                 #F8ECBF;
+  --muted-foreground:      #8F77C7;
+  --accent:                #E9C75F;
+  --accent-foreground:     #2E2433;
+  --destructive:           oklch(0.577 0.245 27.325);
+  --border:                #CABFE3;
+  --input:                 #CABFE3;
+  --ring:                  #4F4473;
+  --radius:                0.75rem;
 }
 
+/* ── Base ─────────────────────────────────────────────────── */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+
+  /* Alice pour tous les titres par défaut */
+  h1, h2, h3, h4 {
+    font-family: var(--font-title);
+  }
+
+  /* Karla pour la navigation et les labels */
+  nav, label, button, input, select, textarea {
+    font-family: var(--font-body);
   }
 
   html {
@@ -107,4 +124,12 @@ body {
   button:disabled {
     cursor: not-allowed;
   }
+}
+
+/* ── Utilitaires Bloom ───────────────────────────────────── */
+@layer utilities {
+  /* Texte en Alice — pour les endroits où la cascade ne s'applique pas */
+  .font-title  { font-family: var(--font-title); }
+  .font-body   { font-family: var(--font-body); }
+  .font-accent { font-family: var(--font-accent); }
 }

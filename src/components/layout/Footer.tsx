@@ -95,12 +95,16 @@ export default function Footer() {
           <p className="font-body text-xs text-bloom-violet-pale/40">
             © {year} Projet Bloom. Le Jardin des Merveilles. Tous droits réservés.
           </p>
-          <div className="flex gap-5">
-            {['Mentions légales', 'Confidentialité (RGPD)', 'CGV'].map((label) => (
-              <a key={label} href="#" className="font-body text-xs text-bloom-violet-pale/40 hover:text-bloom-violet-pale transition-colors">
-                {label}
-              </a>
-            ))}
+          <div className="flex gap-5 flex-wrap justify-center sm:justify-end">
+            <Link href="/mentions-legales" className="font-body text-xs text-bloom-violet-pale/40 hover:text-bloom-violet-pale transition-colors">
+              Mentions légales
+            </Link>
+            <Link href="/politique-de-confidentialite" className="font-body text-xs text-bloom-violet-pale/40 hover:text-bloom-violet-pale transition-colors">
+              Confidentialité (RGPD)
+            </Link>
+            <a href="#" className="font-body text-xs text-bloom-violet-pale/40 hover:text-bloom-violet-pale transition-colors">
+              CGV
+            </a>
           </div>
         </div>
       </div>
