@@ -45,7 +45,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 sm:py-28 px-6 bg-bloom-gray-dark">
+    <section id="contact" className="py-20 sm:py-28 px-6 bg-bloom-gray-dark rounded-t-[2.5rem] sm:rounded-t-[3.5rem]">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
         <motion.div
           className="flex flex-col gap-8"

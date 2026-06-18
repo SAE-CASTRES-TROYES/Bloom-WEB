@@ -42,7 +42,7 @@ export default function ResourceMarquee() {
   const loop = [...CARDS, ...CARDS]
 
   return (
-    <div className={`relative overflow-hidden py-2 ${fadeEdges}`}>
+    <div className={`relative overflow-hidden py-8 ${fadeEdges}`}>
       <motion.div
         className="flex gap-5 w-max"
         animate={reduce ? undefined : { x: ['0%', '-50%'] }}

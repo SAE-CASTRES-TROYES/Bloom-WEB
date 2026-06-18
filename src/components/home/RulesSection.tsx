@@ -92,9 +92,9 @@ export default function RulesSection() {
         >
           {steps.map(({ num, title, desc }) => (
             <motion.div key={num} variants={blurUp} className="flex flex-col gap-2">
-              <span className="font-title text-5xl text-bloom-violet-light/50 leading-none">{num}</span>
-              <h4 className="font-title text-base sm:text-lg text-bloom-black">{title}</h4>
-              <p className="font-body text-sm text-bloom-gray-dark/60 leading-relaxed">{desc}</p>
+              <span className="font-title text-5xl text-bloom-rose leading-none">{num}</span>
+              <h4 className="font-body text-base font-semibold text-bloom-black">{title}</h4>
+              <p className="font-title text-sm text-bloom-gray-dark tracking-tight leading-relaxed">{desc}</p>
             </motion.div>
           ))}
         </motion.div>

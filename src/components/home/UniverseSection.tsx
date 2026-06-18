@@ -6,9 +6,9 @@ import Image from 'next/image'
 import { blurUp, blurIn, staggerParent, viewportOnce } from '@/lib/motion'
 
 const features = [
-  { icon: '/icons/plant-green.svg',   label: 'Coopération', desc: 'Jouez ensemble pour faire éclore les cinq fleurs légendaires.' },
-  { icon: '/icons/eye-purple.svg',    label: 'Doute',       desc: 'Méfiez-vous des Ronces qui se cachent parmi vous.' },
-  { icon: '/icons/flower-purple.svg', label: 'Poésie',      desc: 'Un univers poétique et mystérieux pour tous les âges.' },
+  { icon: '/icons/plant-green.svg',  label: 'Coopération', desc: 'Jouez ensemble pour faire éclore les cinq fleurs légendaires.' },
+  { icon: '/icons/eye-green.svg',    label: 'Doute',       desc: 'Méfiez-vous des Ronces qui se cachent parmi vous.' },
+  { icon: '/icons/flower-green.svg', label: 'Poésie',      desc: 'Un univers poétique et mystérieux pour tous les âges.' },
 ]
 
 export default function UniverseSection() {
@@ -71,8 +71,8 @@ export default function UniverseSection() {
             {features.map(({ icon, label, desc }) => (
               <motion.div key={label} variants={blurUp} className="flex flex-col gap-2">
                 <img src={icon} alt={label} className="w-[54px] h-[54px]" />
-                <p className="font-title text-sm text-bloom-black">{label}</p>
-                <p className="font-body text-xs text-bloom-gray-dark/55 leading-relaxed">{desc}</p>
+                <p className="font-body text-base font-semibold text-bloom-black">{label}</p>
+                <p className="font-title text-sm text-bloom-gray-dark tracking-tight leading-relaxed">{desc}</p>
               </motion.div>
             ))}
           </div>

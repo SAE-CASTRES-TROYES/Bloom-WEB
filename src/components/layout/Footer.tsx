@@ -45,7 +45,7 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-bloom-black text-bloom-cream-light">
+    <footer className="bg-bloom-gray-dark text-bloom-cream-light">
       <div className="max-w-6xl mx-auto px-6 pt-14 pb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           <div className="flex flex-col gap-5">
@@ -59,7 +59,7 @@ export default function Footer() {
             <div className="flex gap-3">
               {socials.map(({ label, icon }) => (
                 <a key={label} href="#" aria-label={label}
-                  className="w-8 h-8 rounded-full bg-bloom-gray-dark border border-bloom-violet-dark/40 flex items-center justify-center text-bloom-violet-pale hover:text-bloom-gold hover:border-bloom-gold/40 transition-colors">
+                  className="w-8 h-8 rounded-full bg-bloom-black/30 border border-bloom-violet-dark/40 flex items-center justify-center text-bloom-violet-pale hover:text-bloom-gold hover:border-bloom-gold/40 transition-colors">
                   {icon}
                 </a>
               ))}
