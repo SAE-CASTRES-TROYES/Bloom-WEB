@@ -67,6 +67,9 @@ jobs:
           script: |
             cd /var/www/bloom
             npm install --production
-            pm2 restart bloom-web --update-env || pm2 start "npm start" --name bloom-web
+            # Charge .env.local dans l'environnement du process PM2 (next start
+            # ne lit pas toujours .env.local au runtime → on force via --update-env)
+            set -a; . /var/www/bloom/.env.local; set +a
+            pm2 restart bloom-web --update-env || pm2 start "npm start" --name bloom-web --update-env
             pm2 save
             echo "Deployed: $(date)"
