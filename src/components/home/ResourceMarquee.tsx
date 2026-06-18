@@ -26,7 +26,7 @@ function Card({ src, name }: { src: string; name: string }) {
       className="shrink-0 w-36 flex flex-col items-center gap-2.5"
     >
       <div className="w-36 aspect-[5/9] rounded-2xl overflow-hidden shadow-lg shadow-bloom-violet-dark/20 ring-1 ring-black/5">
-        <img src={src} alt={name} className="w-full h-full object-cover" loading="lazy" />
+        <img src={src} alt={name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
       </div>
       <span className="font-body text-xs text-bloom-gray-dark/70 text-center">{name}</span>
     </motion.div>
@@ -40,7 +40,7 @@ export default function ResourceMarquee() {
   return (
     <div className={`relative overflow-hidden py-8 ${fadeEdges}`}>
       <motion.div
-        className="flex gap-5 w-max"
+        className="flex gap-5 w-max will-change-transform [transform:translateZ(0)]"
         animate={reduce ? undefined : { x: ['0%', '-50%'] }}
         transition={{ duration: 42, repeat: Infinity, ease: 'linear' }}
       >

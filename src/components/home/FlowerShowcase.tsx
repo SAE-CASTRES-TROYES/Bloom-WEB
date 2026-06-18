@@ -45,7 +45,7 @@ export default function FlowerShowcase() {
 
   return (
     <div
-      className="relative w-full max-w-[420px] mx-auto flex flex-col items-center gap-7 select-none"
+      className="relative w-full max-w-[420px] mx-auto flex flex-col items-center gap-5 select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => { setPaused(false); reset() }}
     >
@@ -77,22 +77,22 @@ export default function FlowerShowcase() {
             />
           </AnimatePresence>
         </motion.div>
+      </div>
 
-        {/* floating name badge */}
-        <div className="absolute bottom-1 left-1/2 -translate-x-1/2">
-          <AnimatePresence mode="popLayout">
-            <motion.span
-              key={flower.name}
-              className={`block font-accent text-2xl sm:text-3xl ${flower.accent}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {flower.name}
-            </motion.span>
-          </AnimatePresence>
-        </div>
+      {/* name (in flow, never over the bloom) */}
+      <div className="h-9 flex items-center justify-center">
+        <AnimatePresence mode="popLayout">
+          <motion.span
+            key={flower.name}
+            className={`block font-accent text-2xl sm:text-3xl ${flower.accent}`}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {flower.name}
+          </motion.span>
+        </AnimatePresence>
       </div>
 
       {/* selector */}
