@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "home": "Home",
+    "news": "News",
+    "shop": "Shop",
+    "account": "My account",
+    "login": "Log in",
+    "logout": "Log out",
+    "play": "Play"
+  },
+  "home": {
+    "hero": {
+      "tagline": "Everything can bloom. Even doubt.",
+      "subtitle": "A hybrid cooperative and betrayal card game for 4 to 8 players.",
+      "cta_play": "Play now",
+      "cta_order": "Pre-order"
+    },
+    "universe": {
+      "title": "The Universe",
+      "body": "In an enchanted garden, Gardeners cooperate to bloom five legendary flowers. But among them lurk Thorns, ready to do anything to sabotage the bloom without revealing themselves."
+    },
+    "rules": {
+      "title": "The Rules",
+      "subtitle": "Easy to learn, impossible to master",
+      "step1_title": "Choose your role",
+      "step1_body": "Gardener or Thorn — only you know your side.",
+      "step2_title": "Play your cards",
+      "step2_body": "Resources, sabotages, shields: every card counts.",
+      "step3_title": "Reveal the truth",
+      "step3_body": "At the end of each flower, betrayal can be exposed."
+    },
+    "news": {
+      "title": "Latest News",
+      "see_all": "See all news"
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "subtitle": "The best Gardeners of the season",
+      "rank": "Rank",
+      "player": "Player",
+      "score": "Score",
+      "games": "Games"
+    },
+    "contact": {
+      "title": "Contact",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "submit": "Send",
+      "success": "Message sent, thank you!",
+      "error": "An error occurred, please try again.",
+      "gdpr": "By submitting this form, you agree to your data being used to process your request."
+    }
+  },
+  "news": {
+    "title": "News",
+    "categories": {
+      "all": "All",
+      "release": "Releases",
+      "event": "Events",
+      "tournament": "Tournaments"
+    },
+    "read_more": "Read more",
+    "back": "← Back to news",
+    "published_on": "Published on {date}"
+  },
+  "shop": {
+    "title": "Shop",
+    "add_to_cart": "Add to cart",
+    "out_of_stock": "Out of stock",
+    "price": "€{price}",
+    "b2b": {
+      "title": "Retailer Space",
+      "subtitle": "Catalog, wholesale prices and sales kit",
+      "catalog": "B2B Catalog",
+      "kit": "Sales kit",
+      "prices": "Wholesale prices",
+      "preorder": "Pro pre-order"
+    }
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "total": "Total",
+    "checkout": "Checkout",
+    "remove": "Remove"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "success_title": "Order confirmed!",
+    "success_body": "Thank you for your purchase. You will receive a confirmation by email."
+  },
+  "auth": {
+    "login_title": "Log in",
+    "register_title": "Create an account",
+    "forgot_title": "Forgot password",
+    "email": "Email address",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "pseudo": "Username",
+    "login_submit": "Log in",
+    "register_submit": "Create my account",
+    "forgot_submit": "Reset",
+    "no_account": "No account yet?",
+    "already_account": "Already have an account?",
+    "register_link": "Sign up",
+    "login_link": "Log in",
+    "forgot_link": "Forgot your password?",
+    "gdpr": "By creating an account, you agree to our terms of service and privacy policy."
+  },
+  "account": {
+    "title": "My account",
+    "identity": "Identity",
+    "pseudo": "Username",
+    "avatar": "Avatar",
+    "language": "Language",
+    "email": "Email",
+    "password": "Password",
+    "save": "Save",
+    "saved": "Changes saved",
+    "history": "Game history",
+    "score": "Total score",
+    "games_played": "Games played"
+  },
+  "locator": {
+    "title": "Where to find Bloom?",
+    "filter_country": "Country",
+    "filter_type": "Store type",
+    "no_results": "No retailers found."
+  },
+  "newsletter": {
+    "title": "Stay informed",
+    "placeholder": "Your email address",
+    "submit": "Subscribe",
+    "gdpr": "By subscribing, you agree to receive our news. Unsubscribe at any time.",
+    "success": "Subscription confirmed, thank you!"
+  },
+  "footer": {
+    "rights": "© {year} Bloom. All rights reserved.",
+    "legal": "Legal notice",
+    "privacy": "Privacy policy"
+  },
+  "errors": {
+    "not_found": "Page not found",
+    "not_found_body": "The page you are looking for does not exist or has been moved.",
+    "back_home": "Back to home"
+  }
+}

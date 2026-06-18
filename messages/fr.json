@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "news": "Actualités",
+    "shop": "Boutique",
+    "account": "Mon compte",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "play": "Jouer"
+  },
+  "home": {
+    "hero": {
+      "tagline": "Tout peut fleurir. Même le doute.",
+      "subtitle": "Un jeu de cartes hybride coopératif et de trahison pour 4 à 8 joueurs.",
+      "cta_play": "Jouer maintenant",
+      "cta_order": "Précommander"
+    },
+    "universe": {
+      "title": "L'Univers",
+      "body": "Dans un jardin enchanté, les Jardiniers coopèrent pour faire éclore cinq fleurs légendaires. Mais parmi eux se cachent des Ronces, prêtes à tout pour saboter la floraison sans se trahir."
+    },
+    "rules": {
+      "title": "Les Règles",
+      "subtitle": "Simple à apprendre, impossible à maîtriser",
+      "step1_title": "Choisissez votre rôle",
+      "step1_body": "Jardinier ou Ronce — seul vous connaissez votre camp.",
+      "step2_title": "Jouez vos cartes",
+      "step2_body": "Ressources, sabotages, boucliers : chaque carte compte.",
+      "step3_title": "Révélez la vérité",
+      "step3_body": "À la fin de chaque fleur, la trahison peut être dévoilée."
+    },
+    "news": {
+      "title": "Actualités",
+      "see_all": "Voir toutes les actualités"
+    },
+    "leaderboard": {
+      "title": "Classement",
+      "subtitle": "Les meilleurs Jardiniers de la saison",
+      "rank": "Rang",
+      "player": "Joueur",
+      "score": "Score",
+      "games": "Parties"
+    },
+    "contact": {
+      "title": "Contact",
+      "name": "Nom",
+      "email": "E-mail",
+      "message": "Message",
+      "submit": "Envoyer",
+      "success": "Message envoyé, merci !",
+      "error": "Une erreur est survenue, réessayez.",
+      "gdpr": "En soumettant ce formulaire, vous acceptez que vos données soient utilisées pour traiter votre demande."
+    }
+  },
+  "news": {
+    "title": "Actualités",
+    "categories": {
+      "all": "Tout",
+      "release": "Sorties",
+      "event": "Événements",
+      "tournament": "Tournois"
+    },
+    "read_more": "Lire la suite",
+    "back": "← Retour aux actualités",
+    "published_on": "Publié le {date}"
+  },
+  "shop": {
+    "title": "Boutique",
+    "add_to_cart": "Ajouter au panier",
+    "out_of_stock": "Rupture de stock",
+    "price": "{price} €",
+    "b2b": {
+      "title": "Espace Revendeur",
+      "subtitle": "Catalogue, tarifs pro et kit de vente",
+      "catalog": "Catalogue B2B",
+      "kit": "Kit de vente",
+      "prices": "Tarifs pro",
+      "preorder": "Précommande pro"
+    }
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide.",
+    "total": "Total",
+    "checkout": "Passer la commande",
+    "remove": "Supprimer"
+  },
+  "checkout": {
+    "title": "Paiement",
+    "success_title": "Commande confirmée !",
+    "success_body": "Merci pour votre achat. Vous recevrez une confirmation par e-mail."
+  },
+  "auth": {
+    "login_title": "Connexion",
+    "register_title": "Créer un compte",
+    "forgot_title": "Mot de passe oublié",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "pseudo": "Pseudo",
+    "login_submit": "Se connecter",
+    "register_submit": "Créer mon compte",
+    "forgot_submit": "Réinitialiser",
+    "no_account": "Pas encore de compte ?",
+    "already_account": "Déjà un compte ?",
+    "register_link": "S'inscrire",
+    "login_link": "Se connecter",
+    "forgot_link": "Mot de passe oublié ?",
+    "gdpr": "En créant un compte, vous acceptez nos conditions d'utilisation et notre politique de confidentialité."
+  },
+  "account": {
+    "title": "Mon compte",
+    "identity": "Identité",
+    "pseudo": "Pseudo",
+    "avatar": "Avatar",
+    "language": "Langue",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "save": "Enregistrer",
+    "saved": "Modifications enregistrées",
+    "history": "Historique des parties",
+    "score": "Score total",
+    "games_played": "Parties jouées"
+  },
+  "locator": {
+    "title": "Où trouver Bloom ?",
+    "filter_country": "Pays",
+    "filter_type": "Type de point de vente",
+    "no_results": "Aucun revendeur trouvé."
+  },
+  "newsletter": {
+    "title": "Restez informé",
+    "placeholder": "Votre adresse e-mail",
+    "submit": "S'abonner",
+    "gdpr": "En vous abonnant, vous acceptez de recevoir nos actualités. Désinscription possible à tout moment.",
+    "success": "Inscription confirmée, merci !"
+  },
+  "footer": {
+    "rights": "© {year} Bloom. Tous droits réservés.",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité"
+  },
+  "errors": {
+    "not_found": "Page introuvable",
+    "not_found_body": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "back_home": "Retour à l'accueil"
+  }
+}

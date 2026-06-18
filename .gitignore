@@ -44,3 +44,7 @@ next-env.d.ts
 .claude/
 CLAUDE.md
 AGENTS.md
+
+# deploy
+bloom.mariusnogueron.fr.conf
+deploy.sh
