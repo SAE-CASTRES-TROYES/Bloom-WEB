@@ -13,11 +13,14 @@ export async function POST(req: Request) {
   const { email } = parsed.data
   const supabase = await createClient()
 
+  // INSERT … ON CONFLICT DO NOTHING : RLS autorise uniquement INSERT (pas UPDATE),
+  // donc upsert échoue si l'email existe déjà. On ignore les doublons silencieusement.
   const { error: dbError } = await supabase
     .from('newsletter_subscribers')
-    .upsert({ email, subscribed_at: new Date().toISOString() }, { onConflict: 'email' })
+    .insert({ email, subscribed_at: new Date().toISOString() })
 
-  if (dbError) return NextResponse.json({ error: 'Database error' }, { status: 500 })
+  // code 23505 = unique_violation (doublon) → pas une erreur métier, on continue
+  if (dbError && dbError.code !== '23505') return NextResponse.json({ error: 'Database error' }, { status: 500 })
 
   if (process.env.RESEND_API_KEY) {
     const resend = new Resend(process.env.RESEND_API_KEY)
