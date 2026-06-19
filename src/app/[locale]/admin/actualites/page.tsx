@@ -24,7 +24,7 @@ export default async function AdminNews({ searchParams }: { searchParams: Promis
   return (
     <div className="flex flex-col gap-8">
       {/* Formulaire création / édition */}
-      <form action={saveNews} className="bg-white rounded-2xl p-6 border border-bloom-violet-light/20 shadow-sm flex flex-col gap-4">
+      <form key={editing?.id ?? 'new'} action={saveNews} className="bg-white rounded-2xl p-6 border border-bloom-violet-light/20 shadow-sm flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h2 className="font-title text-xl text-bloom-violet-dark">{editing ? 'Éditer l’actualité' : 'Nouvelle actualité'}</h2>
           {editing && <Link href="/admin/actualites" className="font-body text-sm text-bloom-rose hover:underline">+ Nouvelle</Link>}

@@ -25,7 +25,7 @@ export default async function AdminProducts({ searchParams }: { searchParams: Pr
 
   return (
     <div className="flex flex-col gap-8">
-      <form action={saveProduct} className="bg-white rounded-2xl p-6 border border-bloom-violet-light/20 shadow-sm flex flex-col gap-4">
+      <form key={editing?.id ?? 'new'} action={saveProduct} className="bg-white rounded-2xl p-6 border border-bloom-violet-light/20 shadow-sm flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h2 className="font-title text-xl text-bloom-violet-dark">{editing ? 'Éditer le produit' : 'Nouveau produit'}</h2>
           {editing && <Link href="/admin/produits" className="font-body text-sm text-bloom-rose hover:underline">+ Nouveau</Link>}

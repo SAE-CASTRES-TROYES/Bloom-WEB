@@ -26,7 +26,7 @@ export default async function AdminRetailers({ searchParams }: { searchParams: P
 
   return (
     <div className="flex flex-col gap-8">
-      <form action={saveRetailer} className="bg-white rounded-2xl p-6 border border-bloom-violet-light/20 shadow-sm flex flex-col gap-4">
+      <form key={editing?.id ?? 'new'} action={saveRetailer} className="bg-white rounded-2xl p-6 border border-bloom-violet-light/20 shadow-sm flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <h2 className="font-title text-xl text-bloom-violet-dark">{editing ? 'Éditer le point de vente' : 'Nouveau point de vente'}</h2>
           {editing && <Link href="/admin/revendeurs" className="font-body text-sm text-bloom-rose hover:underline">+ Nouveau</Link>}
