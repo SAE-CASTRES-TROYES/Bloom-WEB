@@ -45,6 +45,7 @@ export default function Navbar({ user }: { user: NavUser }) {
   const mainLinks = [
     { href: '/actualites', label: t('news') },
     { href: '/boutique',   label: t('shop') },
+    { href: '/trouver-une-boutique', label: t('find') },
   ]
 
   const isAdmin = user?.role === 'admin'

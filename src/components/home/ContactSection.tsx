@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Store, MapPin, Flower2 } from 'lucide-react'
+import { Store, MapPin, Flower2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,7 +25,6 @@ export default function ContactSection() {
   const honeypotRef = useRef<HTMLInputElement>(null)
 
   const contactLinks = [
-    { Icon: Mail,   text: 'bonjour@bloom-jeu.fr', sub: t('link_email_sub'), href: 'mailto:bonjour@bloom-jeu.fr' },
     { Icon: Store,  text: t('link_b2b'),          sub: t('link_b2b_sub'),   href: '/boutique#b2b' },
     { Icon: MapPin, text: t('link_map'),          sub: t('link_map_sub'),   href: '/trouver-une-boutique' },
   ]

@@ -8,14 +8,20 @@ type Product = {
   name: string
   description: string | null
   price_public: number
+  price_pro: number | null
   stock: number
   images: string[] | null
 }
 
-export default function ProductCard({ product }: { product: Product }) {
+const eur = (n: number) =>
+  n.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })
+
+export default function ProductCard({ product, isRetailer = false }: { product: Product; isRetailer?: boolean }) {
   const t = useTranslations('shop')
   const inStock = product.stock > 0
   const image = product.images?.[0]
+  const isPro = isRetailer && product.price_pro != null
+  const displayPrice = isPro ? product.price_pro! : product.price_public
 
   return (
     <Link
@@ -53,8 +59,14 @@ export default function ProductCard({ product }: { product: Product }) {
           </p>
         )}
         <div className="mt-auto flex items-center justify-between pt-3">
-          <span className="font-title text-xl text-bloom-violet-dark">
-            {product.price_public.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+          <span className="flex items-baseline gap-2">
+            <span className="font-title text-xl text-bloom-violet-dark">{eur(displayPrice)}</span>
+            {isPro && (
+              <>
+                <span className="font-body text-sm text-bloom-gray-dark/50 line-through">{eur(product.price_public)}</span>
+                <span className="font-body text-[10px] uppercase tracking-wide text-bloom-rose font-semibold">{t('pro_price_badge')}</span>
+              </>
+            )}
           </span>
           {inStock && (
             <span className="font-body text-xs text-bloom-green font-semibold bg-bloom-green-light px-3 py-1 rounded-full">
