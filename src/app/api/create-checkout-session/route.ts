@@ -41,17 +41,25 @@ export async function POST(req: Request) {
       payment_method_types: ['card'],
       mode: 'payment',
       locale: locale as Stripe.Checkout.SessionCreateParams.Locale,
-      line_items: items.map((item) => ({
-        price_data: {
-          currency: 'eur',
-          unit_amount: Math.round(item.price * 100),
-          product_data: {
-            name: item.name,
-            ...(item.image ? { images: [item.image] } : {}),
+      line_items: items.map((item) => {
+        // Stripe exige des URLs d'image ABSOLUES. On préfixe l'origine aux
+        // chemins relatifs (ex. /cards/x.webp) sinon Stripe répond "Not a valid URL".
+        const imageUrl =
+          item.image && item.image.trim()
+            ? (/^https?:\/\//.test(item.image) ? item.image : `${origin}${item.image.startsWith('/') ? '' : '/'}${item.image}`)
+            : null
+        return {
+          price_data: {
+            currency: 'eur',
+            unit_amount: Math.round(item.price * 100),
+            product_data: {
+              name: item.name,
+              ...(imageUrl ? { images: [imageUrl] } : {}),
+            },
           },
-        },
-        quantity: item.quantity,
-      })),
+          quantity: item.quantity,
+        }
+      }),
       success_url: `${origin}${localePrefix}/paiement/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}${localePrefix}/panier`,
       metadata: { test_mode: 'true' },
